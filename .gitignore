@@ -1,0 +1,4 @@
+build/obj/*.o
+build/*.out
+.cache
+.vscode
