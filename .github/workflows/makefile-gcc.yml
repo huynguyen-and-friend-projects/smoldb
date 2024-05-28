@@ -1,0 +1,20 @@
+name: GCC Ubuntu
+
+on:
+  push:
+    branches: [ "beta-v**" ]
+  pull_request:
+    branches: [ "beta-v**" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install gcc make valgrind
+    - name: Compile and check
+      run: make check CC=gcc
