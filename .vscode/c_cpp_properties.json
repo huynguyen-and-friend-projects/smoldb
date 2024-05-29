@@ -3,13 +3,61 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/cli",
+                "${workspaceFolder}/src/c-api",
+                "${workspaceFolder}/src/internal"
             ],
             "defines": [],
             "cStandard": "c23",
             "cppStandard": "c++23",
             "intelliSenseMode": "linux-clang-x64",
-            "compileCommands": "./compile_commands.json"
+            "compilerArgs": [
+                "-pedantic ",
+                "-Og ",
+                "-g"
+            ],
+            "mergeConfigurations": false,
+            "compilerPath": "/usr/bin/clang",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/src/cli",
+                    "${workspaceFolder}/src/c-api",
+                    "${workspaceFolder}/src/internal"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        },
+        {
+            "name": "Win64",
+            "includePath": [
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/cli",
+                "${workspaceFolder}/src/c-api",
+                "${workspaceFolder}/src/internal"
+            ],
+            "defines": [],
+            "cStandard": "c23",
+            "cppStandard": "c++23",
+            "intelliSenseMode": "windows-clang-x86",
+            "mergeConfigurations": false,
+            "compilerPath": "",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/src",
+                    "${workspaceFolder}/src/cli",
+                    "${workspaceFolder}/src/c-api",
+                    "${workspaceFolder}/src/internal"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "compilerArgs": [
+                "-pedantic",
+                "-Og",
+                "-g"
+            ],
+            "compilerPathInCppPropertiesJson": ""
         }
     ],
     "version": 4

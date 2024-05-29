@@ -1,5 +1,12 @@
 {
     "files.associations": {
         "cli-handler.h": "c"
-    }
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "${workspaceFolder}/build",
+            "binaryPath": "${workspaceFolder}/smoldb.out",
+            "binaryArgs": []
+        }
+    ]
 }
