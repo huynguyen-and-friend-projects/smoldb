@@ -16,7 +16,7 @@
                 "-I${workspaceFolder}/src/internal",
                 "-pedantic",
                 "-Og",
-                "-g",
+                "-g"
             ],
             "options": {
                 "cwd": "${fileDirname}"
