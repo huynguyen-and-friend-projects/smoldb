@@ -56,8 +56,7 @@
                 "-pedantic",
                 "-Og",
                 "-g"
-            ],
-            "compilerPathInCppPropertiesJson": ""
+            ]
         }
     ],
     "version": 4
