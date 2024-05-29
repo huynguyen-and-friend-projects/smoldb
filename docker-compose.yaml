@@ -1,0 +1,26 @@
+version: "6.9"
+
+# run tests
+services:
+  test:
+    container_name: smoldb-test
+    image: smoldb-img:latest
+    ulimits:
+      # in order that Valgrind works correctly
+      nofile:
+        soft: 1024
+        hard: 2048
+    command: ./test-container.sh
+    volumes:
+      - ./src/:/smoldb/src/
+      - ./test/:/smoldb/test/
+      - ./Makefile:/smoldb/Makefile
+      - ./test-container.sh:/smoldb/test-container.sh
+  cli:
+    container_name: smoldb-cli
+    image: smoldb-img:latest 
+    command: ./cli-container.sh
+    volumes:
+      - ./src/:/smoldb/src/
+      - ./Makefile:/smoldb/Makefile
+      - ./cli-container.sh:/smoldb/cli-container.sh

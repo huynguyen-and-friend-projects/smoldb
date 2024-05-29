@@ -1,0 +1,2 @@
+- This is the placeholder for the test folder
+- Tests will be added when necessary
