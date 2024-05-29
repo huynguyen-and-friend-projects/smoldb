@@ -4,9 +4,10 @@
     },
     "makefile.launchConfigurations": [
         {
-            "cwd": "${workspaceFolder}/build",
-            "binaryPath": "${workspaceFolder}/smoldb.out",
+            "cwd": "/workspaces/smoldb/build",
+            "binaryPath": "/workspaces/smoldb/build/smoldb.out",
             "binaryArgs": []
         }
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "enabled"
 }

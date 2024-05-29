@@ -18,10 +18,6 @@
 			]
 		}
 	},
-	"mounts": [
-		// essentially persists the entire root directory
-		{"source": "../", "target": "/smoldb/", "type": "volume"}
-	],
 	"containerEnv": {
 		"PATH": "/usr/bin:/bin",
 		"TERM": "xterm-256color"

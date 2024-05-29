@@ -26,7 +26,9 @@
                     "${workspaceFolder}/src/internal"
                 ],
                 "limitSymbolsToIncludedHeaders": true
-            }
+            },
+            "configurationProvider": "ms-vscode.makefile-tools",
+            "compilerPath": "/usr/bin/clang"
         },
         {
             "name": "Win64",
