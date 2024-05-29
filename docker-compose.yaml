@@ -1,0 +1,22 @@
+version: "6.9"
+
+# run tests
+services:
+  test:
+    container_name: smoldb-test
+    # built with docker build -f test.Dockerfile -t smoldb-test-img .
+    image: smoldb-test-img:latest
+    volumes:
+      - ./src:/smoldb/src
+      - ./test:/smoldb/test
+    ulimits:
+      # in order that Valgrind works correctly
+      nofile:
+        soft: 1024
+        hard: 2048
+  cli:
+    container_name: smoldb-cli
+    # built with docker build -f test.Dockerfile -t smoldb-cli-img .
+    image: smoldb-cli-img:latest 
+    volumes:
+      - ./src:/smoldb/src
