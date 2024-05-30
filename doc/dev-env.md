@@ -1,4 +1,13 @@
 # Set up development environment
+
+<!--toc:start-->
+- [Set up development environment](#set-up-development-environment)
+  - [The lazy way](#the-lazy-way)
+  - [The normal way](#the-normal-way)
+    - [Unix systems](#unix-systems)
+    - [For Windows system](#for-windows-system)
+<!--toc:end-->
+
 - There are 2 ways, the "lazy" way and the "normal" way.
 
 ## The lazy way
@@ -6,13 +15,13 @@
 > Make sure you have Docker Engine and/or Docker Desktop installed
   > [follow the documentation](https://docs.docker.com/engine/install/)
 
-- For more detail, follow [the documentation from VSCode themselves](https://code.visualstudio.com/docs/devcontainers/containers).
-- This is applicable to Visual Studio Code ~~snobs~~ users, and will work on any platform.
+- For more detail, follow [the documentation from Visual Studio Code themselves](https://code.visualstudio.com/docs/devcontainers/containers).
+- This is applicable to Visual Studio Code ~~snobs~~ users, and works on any platform.
 
 1. Install the Docker and Dev Container extensions.
-2. Run the dev container (the Dockerfile used is [this one](../.devcontainer/dev.container.Dockerfile)).
+2. Run the dev container. The Dockerfile used is [this one](../.devcontainer/dev.container.Dockerfile).
 3. Wait for the image to build.
-    - The Makefile extension may warn you about "dry run". Just keep running.
+    - The Makefile extension may warn you about "dry run." Just keep running.
 4. Enjoy your dev environment.
 
 ## The normal way
@@ -20,16 +29,16 @@
 > I have yet to consider "official" support for Windows. Even some functionalities in the Makefile need Unix command-line
 > 
 
-### For Unix systems (Linux/MacOS...)
+### Unix systems
 - Download the following:
-    - git (obviously)
+    - git, obviously.
     - make
-    - clang (or gcc)
-    - valgrind (optional, if on Linux)
-    - docker ([follow the documentation](https://docs.docker.com/engine/install/))
+    - clang or gcc.
+    - valgrind; optional, if on Linux
+    - docker. [Follow the documentation](https://docs.docker.com/engine/install/)
 
 > [!NOTE]
-> If you use a Debian-based Linux distro (eg, Debian itself, Ubuntu, Mint, ...), you can install build-essential, which includes
+> If you use a Debian-based Linux distro (Debian itself, Ubuntu, Mint, ...), you can install build-essential, which includes
 > gcc and make
 >
 
@@ -79,8 +88,8 @@ sudo usermod -aG docker $USER
 
 ### For Windows system
 > [!IMPORTANT]
-> Due to limited resources, Windows support is not currently considered. At best, run using WSL2
+> Due to limited resources, Windows support isn't currently considered. At best, run using WSL2
 >
 
 - Set up WSL2 with your favorite Linux distro.
-- Then, follow one of the setups listed above.
+- Then, follow one of the setups listed preceding.

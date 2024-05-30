@@ -1,10 +1,18 @@
 # SmolDB
-> I hope this database project can finish
+
+<!--toc:start-->
+- [SmolDB](#smoldb)
+  - [What's this?](#whats-this)
+  - [How to build the source code?](#how-to-build-the-source-code)
+  - [Planned features](#planned-features)
+<!--toc:end-->
+
+> Hopefully this database project can finish
 
 ## What's this?
-- An attempt of mine (nguyenhuy0905) and friends to write a database from scratch in C.
-## How do I build the source code?
-- I have written a guide on how to set up the environment [here](./doc/dev-env.md)
+- An attempt to build a database from scratch using C.
+## How to build the source code?
+- There's a guide on how to set up the environment [here](./doc/dev-env.md)
 ## Planned features
 - [ ] A shell to input commands.
 - [ ] A simple SQL parser.
