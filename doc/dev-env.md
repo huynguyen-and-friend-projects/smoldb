@@ -93,3 +93,21 @@ sudo usermod -aG docker $USER
 
 - Set up WSL2 with your favorite Linux distro.
 - Then, follow one of the setups listed preceding.
+
+## Building and testing
+- If you have all the dependencies preceding downloaded, simply run:
+```bash
+make check
+```
+- Otherwise, use Docker:
+1. Make sure you're at root directory of this project.
+2. Run:
+```bash
+docker build -t smoldb-img .
+docker compose -f test.compose.yml up
+# or docker compose -f cli.compose.yml up to see the CLI in action
+```
+> [!NOTE]
+> The two compose files expect the image `smoldb-img`.
+>
+3. After finishing, remove the containers:
