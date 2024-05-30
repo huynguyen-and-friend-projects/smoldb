@@ -43,7 +43,7 @@ OBJ_EXT = .o
 LIB_EXT = .so
 #MacOS compatibility, which will be needed for the C API dynamic library
 ifeq ($(shell uname -s),Darwin)
-	LIB_EXT = .dylib
+LIB_EXT = .dylib
 else
 endif
 
