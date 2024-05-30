@@ -3,7 +3,7 @@ BUILD ?= cli
 
 #if clang is not present, use the default compiler
 ifeq ($(call get_dep_path,$(CC)),)
-	CC := cc
+CC := cc
 endif
 
 #convenient functions
@@ -28,10 +28,10 @@ BOLD = `tput bold`
 endif
 
 ifeq ($(BUILD),cli)
-	DIRS = $(shell find ./src -type d -not -name '*api')
+DIRS = $(shell find ./src -type d -not -name '*api')
 else
 	ifeq ($(BUILD),api)
-		DIRS = $(shell find ./src -type d -not -name '*cli')
+DIRS = $(shell find ./src -type d -not -name '*cli')
 	else
 $(error BUILD must be 'cli' or 'api'; received $(BUILD) instead)
 	endif
@@ -99,16 +99,15 @@ clean:
 
 #leak-check with valgrind
 #NOTE: only runs on Linux, afaik
+ifneq ($(call get_dep_path,valgrind),)
+# won't run valgrind
 VALGRIND := valgrind --leak-check=full --track-origins=yes
-ifeq ($(call get_dep_path,valgrind),)
-	# won't run valgrind
-	VALGRIND :=
 endif
 
 .PHONY: check
 check: $(FINAL_CLI)
 ifeq ($(VALGRIND),)
-$(error VALGRIND is not installed)
+	@printf "Valgrind is not installed in the system\n"
 endif
 	@$(VALGRIND) $(FINAL_CLI)
 	@printf "[$(GREEN)SUCCESS$(SGR0)] $(BOLD)Check finished$(SGR0)\n"
