@@ -1,5 +1,13 @@
 {
     "files.associations": {
         "cli-handler.h": "c"
-    }
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/workspaces/smoldb/build",
+            "binaryPath": "/workspaces/smoldb/build/smoldb.out",
+            "binaryArgs": []
+        }
+    ],
+    "C_Cpp.errorSquiggles": "enabled"
 }
