@@ -23,6 +23,6 @@
 		"TERM": "xterm-256color"
 	},
 	"runArgs": [
-		"--name", "${localEnv:$USER}_devcontainer"
+		"--name", "smoldb_devcontainer"
 	]
 }
