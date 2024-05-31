@@ -23,6 +23,16 @@
 3. Wait for the image to build.
     - The Makefile extension may warn you about "dry run." Just keep running.
 4. Enjoy your dev environment.
+5. After getting into the container, run:
+```bash
+git config --local -e
+```
+- Then add the following
+```ini
+[user]
+    name="YOUR NAME"
+    email="YOUR EMAIL"
+```
 
 ## The normal way
 > [!IMPORTANT]

@@ -13,6 +13,7 @@ RUN echo \
     tee /etc/apt/sources.list.d/docker.list > /dev/null
 RUN apt-get update
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-RUN apt-get install -y build-essential clang valgrind git nano
+RUN apt-get install -y build-essential clang valgrind git gh nano
 RUN apt-get update
 RUN git config --global core.editor nano
+ENTRYPOINT [ "gh", "auth", "login" ]
