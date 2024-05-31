@@ -97,6 +97,11 @@ clean:
 	$(RM) $(OBJS) ./build/*.out
 	@printf "[$(GREEN)SUCCESS$(SGR0)]$(BOLD)Cleanup finished$(SGR0)\n"
 
+.PHONY: run
+run: all
+	./smoldb
+
+
 #leak-check with valgrind
 #NOTE: only runs on Linux, afaik
 ifneq ($(call get_dep_path,valgrind),)
