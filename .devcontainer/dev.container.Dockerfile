@@ -16,4 +16,3 @@ RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugi
 RUN apt-get install -y build-essential clang valgrind git gh nano
 RUN apt-get update
 RUN git config --global core.editor nano
-ENTRYPOINT [ "gh", "auth", "login" ]

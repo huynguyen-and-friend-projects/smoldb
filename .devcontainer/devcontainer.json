@@ -21,5 +21,8 @@
 	"containerEnv": {
 		"PATH": "/usr/bin:/bin",
 		"TERM": "xterm-256color"
-	}
+	},
+	"runArgs": [
+		"--name", "${localEnv:$USER}_devcontainer"
+	]
 }
