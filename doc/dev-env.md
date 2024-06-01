@@ -6,6 +6,9 @@
   - [The normal way](#the-normal-way)
     - [Unix systems](#unix-systems)
     - [For Windows system](#for-windows-system)
+      - [Way 1](#way-1)
+      - [Way 2](#way-2)
+  - [Building and testing](#building-and-testing)
 <!--toc:end-->
 
 - There are 2 ways, the "lazy" way and the "normal" way.
@@ -17,6 +20,7 @@
 > [follow the documentation](https://docs.docker.com/engine/install/)
 > [!WARNING]
 > As of revising this doc, all the Dockerfiles are currently outdated.
+> Hence, this method is not usable for now.
 > They will also be revised soon.
 >
 
@@ -35,11 +39,10 @@
 
 - Download the following:
   - git, obviously.
-
   - cmake
   - ninja
   - clang or gcc. Preferably clang
-  - clang-tools-extra
+  - clang-tools-extra, or clang-tools on Debian systems
   - valgrind; optional, if on Linux
   - docker. [Follow the documentation](https://docs.docker.com/engine/install/)
 
@@ -92,15 +95,11 @@ sudo usermod -aG docker $USER
 ```
 
 ### For Windows system
->
-> [!IMPORTANT]
-> Due to limited resources, Windows support isn't currently considered.
->
 
 #### Way 1
 
 - Set up WSL2 with your favorite Linux distro.
-- Then, follow one of the setups listed preceding.
+- Then, follow the [Unix system setup](#unix-systems).
 
 #### Way 2
 
