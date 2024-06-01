@@ -10,10 +10,15 @@
 > Hopefully this database project can finish
 
 ## What's this?
+
 - An attempt to build a database from scratch using C.
+
 ## How to build the source code?
+
 - There's a guide on how to set up the environment [here](./doc/dev-env.md)
+
 ## Planned features
+
 - [ ] A shell to input commands.
 - [ ] A simple SQL parser.
 - [ ] B-tree to store data.

@@ -11,6 +11,7 @@
 - There are 2 ways, the "lazy" way and the "normal" way.
 
 ## The lazy way
+
 > [!IMPORTANT]
 > Make sure you have Docker Engine and/or Docker Desktop installed
   > [follow the documentation](https://docs.docker.com/engine/install/)
@@ -25,17 +26,20 @@
 4. Enjoy your dev environment.
 
 ## The normal way
+
 > [!IMPORTANT]
 > I have yet to consider "official" support for Windows. Even some functionalities in the Makefile need Unix command-line
 > 
 
 ### Unix systems
+
 - Download the following:
-    - git, obviously.
-    - make
-    - clang or gcc.
-    - valgrind; optional, if on Linux
-    - docker. [Follow the documentation](https://docs.docker.com/engine/install/)
+  - git, obviously.
+
+  - make
+  - clang or gcc.
+  - valgrind; optional, if on Linux
+  - docker. [Follow the documentation](https://docs.docker.com/engine/install/)
 
 > [!NOTE]
 > If you use a Debian-based Linux distro (Debian itself, Ubuntu, Mint, ...), you can install build-essential, which includes
@@ -43,6 +47,7 @@
 >
 
 - An example script for Debian-based distro
+
 ```bash
 # for debian
 sudo apt-get update
@@ -87,27 +92,44 @@ sudo usermod -aG docker $USER
 ```
 
 ### For Windows system
+>
 > [!IMPORTANT]
-> Due to limited resources, Windows support isn't currently considered. At best, run using WSL2
+> Due to limited resources, Windows support isn't currently considered.
 >
 
-- Set up WSL2 with your favorite Linux distro.
-- Then, follow one of the setups listed preceding.
+- Way 1:
+  - Set up WSL2 with your favorite Linux distro.
+  - Then, follow one of the setups listed preceding.
+
+- Way 2:
+  - Download the following:
+    - git
+    - ming-w64-MSYS2 [following this link](https://www.mingw-w64.org/downloads/#msys2)
+    - Add the ming-w64 install directory to your PATH
+
+> [!NOTE]
+> Way 2 is currently not tested yet.
+>
 
 ## Building and testing
+
 - If you have all the dependencies preceding downloaded, simply run:
+
 ```bash
 make check
 ```
+
 - Otherwise, use Docker:
+
 1. Make sure you're at root directory of this project.
 2. Run:
+
 ```bash
 docker build -t smoldb-img .
 docker compose -f test.compose.yml up
 # or docker compose -f cli.compose.yml up to see the CLI in action
 ```
+
 > [!NOTE]
 > The two compose files expect the image `smoldb-img`.
 >
-3. After finishing, remove the containers:
