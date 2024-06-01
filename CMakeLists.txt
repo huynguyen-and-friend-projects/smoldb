@@ -18,3 +18,7 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED True)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 set(CMAKE_GENERATOR Ninja)
+
+add_executable(smoldb main.c)
+
+target_link_libraries(smoldb PUBLIC smoldb-entry smoldb-cli smoldb-internal)
