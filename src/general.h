@@ -8,3 +8,4 @@
 #define SMOL_INTERNAL static
 
 #endif // !__SMOLDB_GENERAL_H__
+
