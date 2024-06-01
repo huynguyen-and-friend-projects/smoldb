@@ -3,7 +3,11 @@ project(Smoldb LANGUAGES C VERSION 0.0)
 
 add_compile_options(-pedantic -Og -g -Wall)
 # sanitization
-add_compile_options(-fsanitize=leak)
+if(WIN32)
+  message("Windows")
+else()
+  add_compile_options(-fsanitize=leak)
+endif()
 
 add_subdirectory(src)
 # add_subdirectory(src/c-api)
