@@ -15,6 +15,6 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install gcc make valgrind
-    - name: Compile and check
-      run: make check CC=gcc
+      run: sudo apt-get update && sudo apt-get install gcc cmake ninja-build valgrind
+    - name: Compile executable
+      run: mkdir build && cd build && cmake -DBUILD_TYPE=release .. && cmake --build .

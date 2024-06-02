@@ -1,4 +1,4 @@
-build/obj/*.o
-build/*.out
 .cache
+build/**
 compile_commands.json
+.vscode

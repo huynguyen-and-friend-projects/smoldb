@@ -116,3 +116,4 @@ ifeq ($(VALGRIND),)
 endif
 	@$(VALGRIND) $(FINAL_CLI)
 	@printf "[$(GREEN)SUCCESS$(SGR0)] $(BOLD)Check finished$(SGR0)\n"
+
