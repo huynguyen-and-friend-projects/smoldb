@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.12)
+# for generator expressions
+cmake_minimum_required(VERSION 3.15)
 project(
   Smoldb
   LANGUAGES C
@@ -8,7 +9,6 @@ project(
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED True)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
-set(CMAKE_GENERATOR Ninja)
 
 # build steps for this project:
 
@@ -24,7 +24,9 @@ set(CMAKE_GENERATOR Ninja)
 # 7. The build is complete.
 
 # compile options depending on build version
-add_compile_options(-Wall)
+set(is_gcc_like "$<COMPILE_LANG_AND_ID:C,ARMClang,AppleClang,Clang,GNU,LCC>")
+set(is_msvc "$<COMPILE_LANG_AND_ID:C,MSVC>")
+
 if(BUILD_TYPE STREQUAL Release OR BUILD_TYPE STREQUAL release)
   message("Building a release version")
   add_compile_options(-O2)
@@ -56,6 +58,9 @@ add_subdirectory(src/cli)
 # enforce C23 to all static libraries
 add_library(compile-opts INTERFACE)
 target_compile_features(compile-opts INTERFACE c_std_23)
+target_compile_options(
+  compile-opts INTERFACE "$<${is_gcc_like}:-Wall;-Wextra;-Wformat=2>"
+                         "$<${is_msvc}:-W3>")
 
 # CMake requires at least 1 source file linked with the executable
 add_executable(smoldb dummy-file.c)
