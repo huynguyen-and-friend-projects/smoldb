@@ -1,0 +1,8 @@
+Checks: "
+  -*,
+  google-*,
+  bugprone-*,
+  readability-*,
+  performance-*,
+  portability-*
+"
