@@ -8,7 +8,6 @@ project(
 # enforcing some standards
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED True)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 
 # build steps for this project:
 
@@ -27,25 +26,15 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 set(is_gcc_like "$<COMPILE_LANG_AND_ID:C,ARMClang,AppleClang,Clang,GNU,LCC>")
 set(is_msvc "$<COMPILE_LANG_AND_ID:C,MSVC>")
 
-if(BUILD_TYPE STREQUAL Release OR BUILD_TYPE STREQUAL release)
+# Check the CMakeCache.txt file generated to know the options
+if(CMAKE_BUILD_TYPE STREQUAL Release)
   message("Building a release version")
-  add_compile_options(-O2)
-elseif(BUILD_TYPE STREQUAL Debug OR BUILD_TYPE STREQUAL debug)
+elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
   message("Building a debug version")
-  add_compile_options(-pedantic -Og)
-elseif(NOT DEFINED BUILD_TYPE)
-  # rage quit
-  message(
-    SEND_ERROR
-      "Error, expected BUILD_TYPE=Release or BUILD_TYPE=Debug, got ${BUILD_TYPE} instead"
-  )
-else()
-  message("No build type specified, defaulting to Release")
-  set(BUILD_TYPE Release)
 endif()
 
 # I tried this flag on Windows and it threw an error, so,
-if(NOT WIN32 AND (BUILD_TYPE STREQUAL Debug OR BUILD_TYPE STREQUAL debug))
+if(NOT WIN32 AND (CMAKE_BUILD_TYPE STREQUAL Debug))
   add_compile_options(-fsanitize=leak)
 endif()
 
