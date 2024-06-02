@@ -1,6 +1,8 @@
 #include "cli-handler.h"
-#include "retval.h"
+
 #include <stdlib.h>
+
+#include "retval.h"
 
 struct InputBuf {
   char *buffer;
@@ -8,12 +10,14 @@ struct InputBuf {
 };
 
 int smoldb_new_input_buf(InputBuf **buf) {
-  if (buf == NULL)
+  if (buf == NULL) {
     return SMOLDB_NULL_PTR_TO_REF_ERR;
+  }
 
   (*buf) = (InputBuf *)malloc(sizeof(InputBuf));
-  if ((*buf) == NULL)
+  if ((*buf) == NULL) {
     return SMOLDB_ALLOC_ERR;
+  }
 
   (*buf)->buffer = NULL;
   (*buf)->buf_len = 0;
@@ -22,8 +26,9 @@ int smoldb_new_input_buf(InputBuf **buf) {
 }
 
 int smoldb_free_input_buf(InputBuf **buf) {
-  if (buf == NULL)
+  if (buf == NULL) {
     return SMOLDB_ALLOC_SUCCESS;
+  }
 
   free((*buf)->buffer);
   (*buf)->buffer = NULL;

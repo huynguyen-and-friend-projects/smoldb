@@ -1,5 +1,5 @@
-#ifndef __SMOLDB_RETVAL_H__
-#define __SMOLDB_RETVAL_H__
+#ifndef SMOL_DB_RETVAL_H
+#define SMOL_DB_RETVAL_H
 
 /**
  * @typedef SMOL_ALLOC_RETVAL
@@ -31,4 +31,4 @@ typedef enum SMOL_INPUT_READ_RETVAL {
   SMOLDB_READ_ERR,
 } SMOL_INPUT_READ_RETVAL;
 
-#endif // !__SMOLDB_RETVAL_H__
+#endif  // !SMOL_DB_RETVAL_H
