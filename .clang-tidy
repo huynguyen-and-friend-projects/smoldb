@@ -6,3 +6,4 @@ Checks: "
   performance-*,
   portability-*
 "
+WarningsAsErrors: '*'
