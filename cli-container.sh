@@ -1,6 +1,4 @@
 #!/bin/bash
 
-make clean
-make CC=gcc
-
+# Note: as the Dockerfiles in here are no longer needed, this file will be removed
 ./smoldb

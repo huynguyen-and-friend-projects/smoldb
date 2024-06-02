@@ -1,5 +1,3 @@
 #!/bin/bash
 
-make clean
-
-make check CC=gcc
+# note: this file will be removed

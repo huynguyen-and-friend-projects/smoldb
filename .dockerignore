@@ -1,5 +1,6 @@
 .git
 .github
+build
 doc
 .dockerignore
 .gitignore
