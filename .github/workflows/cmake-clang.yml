@@ -16,4 +16,4 @@ jobs:
     - name: Install dependencies
       run: sudo apt-get update && sudo apt-get install clang ninja-build valgrind
     - name: Compile executable
-      run: mkdir build && cd build && cmake .. && cmake --build .
+      run: mkdir build && cd build && cmake -DBUILD_TYPE=release .. && cmake --build .
