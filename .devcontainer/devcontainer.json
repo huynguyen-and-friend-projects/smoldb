@@ -24,5 +24,8 @@
 	],
   "postCreateCommand": "./cmake-default-init.sh && dnf upgrade -y --refresh",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=delegate",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "mounts": [
+	"type=bind,source=/home/${localEnv:USER}/.ssh,target=/root/.ssh,readonly"
+  ]
 }
