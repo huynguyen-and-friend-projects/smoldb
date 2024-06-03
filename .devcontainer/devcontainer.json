@@ -3,16 +3,14 @@
 {
 	"name": "Debian Container",
 	"build": {
-		// Sets the run context to one level up instead of the .devcontainer folder.
-		"context": "..",
 		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
-		"dockerfile": "dev.container.Dockerfile"
+		"dockerfile": "Dockerfile"
 	},
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"ms-vscode.cpptools-extension-pack",
-				"ms-vscode.makefile-tools",
+        "ms-vscode.cmake-tools",
 				"redhat.vscode-yaml",
 				"ms-azuretools.vscode-docker"
 			]
@@ -23,6 +21,8 @@
 		"TERM": "xterm-256color"
 	},
 	"runArgs": [
-		"--name", "smoldb_devcontainer"
-	]
+	],
+  "postCreateCommand": "rm -rf ./build && mkdir build",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=delegate",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 }
