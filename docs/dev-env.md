@@ -169,34 +169,6 @@ cmake --build .
 2. cd to the project's root directory
 3. Run:
 
-```cmd
+```bash
 mklink compile_commands.json build/compile_commands.json
 ```
-
-## Building and testing
-
-> [!WARNING]
-> All the Dockerfiles are currently outdated, and this step won't run.
-> Wait for an update before attempting.
->
-
-- If you have all the dependencies preceding downloaded, simply run:
-
-```bash
-make check
-```
-
-- Otherwise, use Docker:
-
-1. Make sure you're at root directory of this project.
-2. Run:
-
-```bash
-docker build -t smoldb-img .
-docker compose -f test.compose.yml up
-# or docker compose -f cli.compose.yml up to see the CLI in action
-```
-
-> [!NOTE]
-> The two compose files expect the image `smoldb-img`.
->
