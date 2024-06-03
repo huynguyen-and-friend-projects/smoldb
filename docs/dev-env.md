@@ -24,10 +24,12 @@
 1. Install the Docker and Dev Container extensions.
 2. Run the dev container. The Dockerfile used is [this one](../.devcontainer/Dockerfile).
 3. Wait for the image to build.
- The image will also configure CMake to setup build system for a Linux debug version using clang.
+ The image also configures CMake to
+ setup build system for a Linux debug version using clang.
 
 > [!IMPORTANT]
-> When you exit the dev container, be sure to re-configure CMake build (with the convenience script). If you're on Windows, use git bash
+> When you exit the dev container, be sure to re-configure CMake build
+> with the convenience script. If you're on Windows, use git bash
 >
 > ```bash
 > ./cmake-default-init.sh
@@ -45,7 +47,12 @@
   - clang or gcc. Preferably clang
   - clang-tools-extra, or clang-tools on Debian systems
   - valgrind; optional, if on Linux
+  - vale; optional, if you're planning to edit documentation
   - docker. [Follow the documentation](https://docs.docker.com/engine/install/)
+
+> [!NOTE]
+> If you're on Mac, consider installing Brew to more easily download the packages.
+>
 
 ```bash
 # for debian
@@ -99,14 +106,16 @@ sudo usermod -aG docker $USER
     - Dev container. Optional.
     - markdownlint. Optional, but essential if writing documents.
     - Clang-Format.
-    - YAML. Pretty much unnecessary, only to configure YAML files, such as the .clang-format file.
+    - Vale VSCode.
+    - YAML. Pretty much unnecessary,
+    only to configure YAML files, such as the .clang-format file.
     - GitHub Actions. Optional, only useful to check how your GitHub actions go.
     - GitHub Pull Request. Optional, since, browser.
-  - After that, click on the CMake icon on the left-hand-side bar.
+  - After that, click the CMake icon on the left-hand-side bar.
   - In the "Configure" tab, choose the Clang kit.
   - The extension should know enough to figure out the rest.
 
-- If you're on NeoVim or any other editors using clang-analyzer LSP, set up as follow:
+- If you're on NeoVim or any other editors using clang-analyzer, set up as follow:
   - Run the convenience script to generate a compile_commands.json:
 
   ```bash
@@ -120,7 +129,9 @@ sudo usermod -aG docker $USER
 ### For Windows system
 
 > [!NOTE]
-> This part is mainly for building a Windows-native executable. If you just need to see the thing run, opt for the [dev container](#set-up-development-environment) way.
+> This part is mainly for building a Windows-native executable.
+> If you just need to see the thing run,
+> opt for the [dev container](#set-up-development-environment) way.
 >
 
 #### Way 1
@@ -131,23 +142,20 @@ sudo usermod -aG docker $USER
 #### Way 2
 
 - This sets up your VS Code to build a Windows-native executable.
-- There's a good chance this works on other IDEs also, but we mainly use VS Code.
+- There's a good chance this works on other IDEs also, but mainly VS Code.
 
 > [!NOTE]
-> Make sure to have VS Code and Git Bash installed (which, you should, already)
->
-> [!NOTE]
-> Note down the installation path if needed
->
+> Make sure to have VS Code and Git Bash installed,
+> and also note down installation path if needed.
 
 - Download the following:
 - git
 - MSYS2 [following this link](https://www.mingw-w64.org/downloads/#msys2)
 - Docker. Optional, only for running dev container.
+- choco. Optional, to download Vale, necessary for editing documentation.
 - Then, do as follow:
 
-1. After downloading MSYS2, find the UCRT64 executable and run
-(located at <install_path>\ucrt64.exe, I believe?)
+1. After downloading MSYS2, find the UCRT64 executable and run it.
 2. Inside the UCRT64 terminal, run:
 
   ```bash
@@ -163,10 +171,25 @@ sudo usermod -aG docker $USER
 - After that, you have enough tools to compile this project.
 - Finally, add these tools to the environment variables:
 
-1. Press `Window`, search for "environment variables".
+1. Press `Window`, search for "environment variables."
 2. Click on the first result, which leads to the list of environment variables.
-3. Click "Add", and paste in <install_path>\ucrt64\bin.
+3. Click "Add," and paste in <install_path>\ucrt64\bin.
 4. Close the window.
+
+- If you're on VS Code, set up as follow:
+  - Install extensions:
+    - C/C++ extension pack, which also includes CMake Tools.
+    - Dev container. Optional.
+    - markdownlint. Optional, but essential if writing documents.
+    - Clang-Format.
+    - Vale VSCode.
+    - YAML. Pretty much unnecessary,
+    only to configure YAML files, such as the .clang-format file.
+    - GitHub Actions. Optional, only useful to check how your GitHub actions go.
+    - GitHub Pull Request. Optional, since, browser.
+  - After that, click the CMake icon on the left-hand-side bar.
+  - In the "Configure" tab, choose the Clang kit.
+  - The extension should know enough to figure out the rest.
 
 - Now, fork this repository, then clone your fork, and do the setup:
 
@@ -184,6 +207,7 @@ cd build && cmake --build .
 ```
 
 > [!NOTE]
-> As of writing this doc, nothing will happen when running the executable. But, it is to be expected.
+> As of writing this doc, nothing happens when running the executable.
+> But, nothing unexpected.
 > If nothing happens, then it ran without an error.
 >

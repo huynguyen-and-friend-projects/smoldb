@@ -15,7 +15,7 @@
 
 ## How to build the source code?
 
-- There's a guide on how to set up the environment [here](./doc/dev-env.md)
+- There's a guide on how to set up the environment [here](./docs/dev-env.md)
 
 ## Planned features
 
