@@ -110,7 +110,7 @@ sudo usermod -aG docker $USER
     - Dev container. Optional.
     - markdownlint. Optional, but essential if writing documents.
     - Clang-Format.
-    - Vale VSCode.
+    - Vale VSCode. Optional, but essential if writing documents.
     - YAML. Pretty much unnecessary,
     only to configure YAML files, such as the .clang-format file.
     - GitHub Actions. Optional, only useful to check how your GitHub actions go.
@@ -186,7 +186,7 @@ sudo usermod -aG docker $USER
     - Dev container. Optional.
     - markdownlint. Optional, but essential if writing documents.
     - Clang-Format.
-    - Vale VSCode.
+    - Vale VSCode. Optional, but essential if writing documents.
     - YAML. Pretty much unnecessary,
     only to configure YAML files, such as the .clang-format file.
     - GitHub Actions. Optional, only useful to check how your GitHub actions go.
