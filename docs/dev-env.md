@@ -8,7 +8,6 @@
     - [For Windows system](#for-windows-system)
       - [Way 1](#way-1)
       - [Way 2](#way-2)
-  - [Building and testing](#building-and-testing)
 <!--toc:end-->
 
 - There are 2 ways, the "lazy" way and the "normal" way.
@@ -18,30 +17,22 @@
 > [!IMPORTANT]
 > Make sure you have Docker Engine and/or Docker Desktop installed
 > [follow the documentation](https://docs.docker.com/engine/install/)
-> [!WARNING]
-> As of revising this doc, all the Dockerfiles are currently outdated.
-> Hence, this method is not usable for now.
-> They will also be revised soon.
->
 
 - For more detail, follow [the documentation from Visual Studio Code themselves](https://code.visualstudio.com/docs/devcontainers/containers).
 - This is applicable to Visual Studio Code ~~snobs~~ users, and works on any platform.
 
 1. Install the Docker and Dev Container extensions.
-2. Run the dev container. The Dockerfile used is [this one](../.devcontainer/dev.container.Dockerfile).
+2. Run the dev container. The Dockerfile used is [this one](../.devcontainer/Dockerfile).
 3. Wait for the image to build.
-    - The Makefile extension may warn you about "dry run." Just keep running.
-4. Enjoy your dev environment.
-5. After getting into the container, run:
-```bash
-git config --local -e
-```
-- Then add the following
-```ini
-[user]
-    name="YOUR NAME"
-    email="YOUR EMAIL"
-```
+ The image will also configure CMake to setup build system for a Linux debug version using clang.
+
+> [!IMPORTANT]
+> When you exit the dev container, be sure to re-configure CMake build (with the convenience script). If you're on Windows, use git bash
+>
+> ```bash
+> ./cmake-default-init.sh
+> ```
+>
 
 ## The normal way
 
@@ -55,8 +46,6 @@ git config --local -e
   - clang-tools-extra, or clang-tools on Debian systems
   - valgrind; optional, if on Linux
   - docker. [Follow the documentation](https://docs.docker.com/engine/install/)
-
-- An example script for Debian-based distro
 
 ```bash
 # for debian
@@ -106,6 +95,10 @@ sudo usermod -aG docker $USER
 
 ### For Windows system
 
+> [!NOTE]
+> This part is mainly for building a Windows-native executable. If you just need to see the thing run, opt for the [dev container](#set-up-development-environment) way.
+>
+
 #### Way 1
 
 - Set up WSL2 with your favorite Linux distro.
@@ -113,8 +106,11 @@ sudo usermod -aG docker $USER
 
 #### Way 2
 
+- This sets up your VS Code to build a Windows-native executable.
+- There's a good chance this works on other IDEs also, but we mainly use VS Code.
+
 > [!NOTE]
-> Make sure to have VS Code installed (which, you should, already)
+> Make sure to have VS Code and Git Bash installed (which, you should, already)
 >
 > [!NOTE]
 > Note down the installation path if needed
@@ -123,6 +119,7 @@ sudo usermod -aG docker $USER
 - Download the following:
 - git
 - MSYS2 [following this link](https://www.mingw-w64.org/downloads/#msys2)
+- Docker. Optional, only for running dev container.
 - Then, do as follow:
 
 1. After downloading MSYS2, find the UCRT64 executable and run
@@ -147,7 +144,7 @@ sudo usermod -aG docker $USER
 3. Click "Add", and paste in <install_path>\ucrt64\bin.
 4. Close the window.
 
-- Now, clone this repository, and do the setup:
+- Now, fork this repository, then clone your fork, and do the setup:
 
 1. Open terminal, make sure you're at the root directory of this project.
 2. Run `code .`, which launches VS Code.
@@ -155,20 +152,14 @@ sudo usermod -aG docker $USER
 at the root directory of the project.
 4. Open the integrated terminal and run the following to build an executable.
 After that, run the executable:
-
-```pwsh
-cd build
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..
-cmake --build .
+ 
+```bash
+./cmake-default-init.sh
+cd build && cmake --build .
 ./smoldb.exe
 ```
 
-- It may be necessary to symlink to `build\compile_commands.json`:
-
-1. Run Command Prompt as administrator.
-2. cd to the project's root directory
-3. Run:
-
-```bash
-mklink compile_commands.json build/compile_commands.json
-```
+> [!NOTE]
+> As of writing this doc, nothing will happen when running the executable. But, it is to be expected.
+> If nothing happens, then it ran without an error.
+>

@@ -16,7 +16,10 @@
 				"davidanson.vscode-markdownlint",
 				"github.vscode-github-actions",
 				"github.vscode-pull-request-github"
-			]
+			],
+			"settings": {
+				"editor.formatOnSave": true
+			}
 		}
 	},
 	"containerEnv": {
