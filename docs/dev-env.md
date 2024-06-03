@@ -93,6 +93,30 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 ```
 
+- If you're on VS Code, set up as follow:
+  - Install extensions:
+    - C/C++ extension pack, which also includes CMake Tools.
+    - Dev container. Optional.
+    - markdownlint. Optional, but essential if writing documents.
+    - Clang-Format.
+    - YAML. Pretty much unnecessary, only to configure YAML files, such as the .clang-format file.
+    - GitHub Actions. Optional, only useful to check how your GitHub actions go.
+    - GitHub Pull Request. Optional, since, browser.
+  - After that, click on the CMake icon on the left-hand-side bar.
+  - In the "Configure" tab, choose the Clang kit.
+  - The extension should know enough to figure out the rest.
+
+- If you're on NeoVim or any other editors using clang-analyzer LSP, set up as follow:
+  - Run the convenience script to generate a compile_commands.json:
+
+  ```bash
+  ./cmake-default-init.sh
+  # create a symlink at the project root
+  ln -s build/compile_commands.json compile_commands.json
+  ```
+
+  - After that, clang-analyzer should figure itself out.
+
 ### For Windows system
 
 > [!NOTE]
