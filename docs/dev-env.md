@@ -152,7 +152,7 @@ sudo usermod -aG docker $USER
 at the root directory of the project.
 4. Open the integrated terminal and run the following to build an executable.
 After that, run the executable:
- 
+
 ```bash
 ./cmake-default-init.sh
 cd build && cmake --build .
