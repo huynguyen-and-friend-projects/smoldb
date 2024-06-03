@@ -28,10 +28,7 @@
 	},
 	"runArgs": [
 	],
-<<<<<<< HEAD
   "postCreateCommand": "./cmake-default-init.sh && dnf upgrade -y --refresh",
-=======
->>>>>>> refs/remotes/origin/beta-v0.0.1
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=delegate",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "mounts": [
