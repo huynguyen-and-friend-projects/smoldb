@@ -2,9 +2,11 @@ name: Clang Ubuntu
 
 on:
   push:
-    branches: [ "*" ]
+    branches: 
+    - "**"
   pull_request:
-    branches: [ "*" ]
+    branches: 
+    - "**"
 
 jobs:
   build:
