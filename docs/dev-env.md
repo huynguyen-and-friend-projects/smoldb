@@ -21,6 +21,10 @@
 - For more detail, follow [the documentation from Visual Studio Code themselves](https://code.visualstudio.com/docs/devcontainers/containers).
 - This is applicable to Visual Studio Code ~~snobs~~ users, and works on any platform.
 
+> [!NOTE]
+> If you're on Windows/Mac, this is also the easiest way to use valgrind
+>
+
 1. Install the Docker and Dev Container extensions.
 2. Run the dev container. The Dockerfile used is [this one](../.devcontainer/Dockerfile).
 3. Wait for the image to build.
