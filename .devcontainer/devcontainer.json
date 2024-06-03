@@ -22,7 +22,7 @@
 	},
 	"runArgs": [
 	],
-  "postCreateCommand": "rm -rf ./build && mkdir build",
+  "postCreateCommand": "./cmake-default-init.sh && dnf upgrade -y --refresh",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=delegate",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 }
