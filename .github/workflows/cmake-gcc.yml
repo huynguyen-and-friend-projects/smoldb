@@ -2,9 +2,9 @@ name: GCC Ubuntu
 
 on:
   push:
-    branches: [ "beta-v**" ]
+    branches: [ "*" ]
   pull_request:
-    branches: [ "beta-v**" ]
+    branches: [ "*" ]
 
 jobs:
   build:

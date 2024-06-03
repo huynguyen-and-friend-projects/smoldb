@@ -8,4 +8,3 @@ ENV CXX=clang++
 
 # remove random artifacts
 RUN dnf autoremove -y
-
