@@ -36,6 +36,7 @@
 > with the convenience script. If you're on Windows, use git bash
 >
 > ```bash
+> sudo rm -rf ./build
 > ./cmake-default-init.sh
 > ```
 >
@@ -119,10 +120,15 @@ sudo usermod -aG docker $USER
   - In the "Configure" tab, choose the Clang kit.
   - The extension should know enough to figure out the rest.
 
+> [!NOTE]
+> If CMake throws an error, delete and re-create the `build` directory first.
+>
+
 - If you're on NeoVim or any other editors using clang-analyzer, set up as follow:
   - Run the convenience script to generate a compile_commands.json:
 
   ```bash
+  sudo rm -rf ./build
   ./cmake-default-init.sh
   # create a symlink at the project root
   ln -s build/compile_commands.json compile_commands.json
