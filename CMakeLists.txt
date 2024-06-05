@@ -52,5 +52,5 @@ target_compile_options(
                          "$<${is_msvc}:-W3>")
 
 # CMake requires at least 1 source file linked with the executable
-add_executable(smoldb dummy-file.c)
-target_link_libraries(smoldb PUBLIC smoldb-entry smoldb-cli smoldb-internal)
+# add_executable(smoldb dummy-file.c)
+# target_link_libraries(smoldb PUBLIC smoldb-entry smoldb-cli smoldb-internal)
