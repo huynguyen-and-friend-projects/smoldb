@@ -1,25 +1,37 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
 {
-	"name": "Debian Container",
+	"name": "Fedora Container",
 	"build": {
-		// Sets the run context to one level up instead of the .devcontainer folder.
-		"context": "..",
 		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
-		"dockerfile": "dev.container.Dockerfile"
+		"dockerfile": "Dockerfile"
 	},
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"ms-vscode.cpptools-extension-pack",
-				"ms-vscode.makefile-tools",
+        		"ms-vscode.cmake-tools",
 				"redhat.vscode-yaml",
-				"ms-azuretools.vscode-docker"
-			]
+				"ms-azuretools.vscode-docker",
+				"davidanson.vscode-markdownlint",
+				"github.vscode-github-actions",
+				"github.vscode-pull-request-github"
+			],
+			"settings": {
+				"editor.formatOnSave": true
+			}
 		}
 	},
 	"containerEnv": {
 		"PATH": "/usr/bin:/bin",
 		"TERM": "xterm-256color"
-	}
+	},
+	"runArgs": [
+	],
+  "postCreateCommand": "./cmake-default-init.sh && dnf upgrade -y --refresh",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=delegate",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "mounts": [
+	"type=bind,source=/home/${localEnv:USER}/.ssh,target=/root/.ssh,readonly"
+  ]
 }

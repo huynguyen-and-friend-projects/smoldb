@@ -8,7 +8,6 @@
     - [For Windows system](#for-windows-system)
       - [Way 1](#way-1)
       - [Way 2](#way-2)
-  - [Building and testing](#building-and-testing)
 <!--toc:end-->
 
 - There are 2 ways, the "lazy" way and the "normal" way.
@@ -18,20 +17,29 @@
 > [!IMPORTANT]
 > Make sure you have Docker Engine and/or Docker Desktop installed
 > [follow the documentation](https://docs.docker.com/engine/install/)
-> [!WARNING]
-> As of revising this doc, all the Dockerfiles are currently outdated.
-> Hence, this method is not usable for now.
-> They will also be revised soon.
->
 
 - For more detail, follow [the documentation from Visual Studio Code themselves](https://code.visualstudio.com/docs/devcontainers/containers).
 - This is applicable to Visual Studio Code ~~snobs~~ users, and works on any platform.
 
+> [!NOTE]
+> If you're on Windows/Mac, this is also the easiest way to use valgrind
+>
+
 1. Install the Docker and Dev Container extensions.
-2. Run the dev container. The Dockerfile used is [this one](../.devcontainer/dev.container.Dockerfile).
+2. Run the dev container. The Dockerfile used is [this one](../.devcontainer/Dockerfile).
 3. Wait for the image to build.
-    - The Makefile extension may warn you about "dry run." Just keep running.
-4. Enjoy your dev environment.
+ The image also configures CMake to
+ setup build system for a Linux debug version using clang.
+
+> [!IMPORTANT]
+> When you exit the dev container, be sure to re-configure CMake build
+> with the convenience script. If you're on Windows, use git bash
+>
+> ```bash
+> sudo rm -rf ./build
+> ./cmake-default-init.sh
+> ```
+>
 
 ## The normal way
 
@@ -44,9 +52,12 @@
   - clang or gcc. Preferably clang
   - clang-tools-extra, or clang-tools on Debian systems
   - valgrind; optional, if on Linux
+  - vale; optional, if you're planning to edit documentation
   - docker. [Follow the documentation](https://docs.docker.com/engine/install/)
 
-- An example script for Debian-based distro
+> [!NOTE]
+> If you're on Mac, consider installing Brew to more easily download the packages.
+>
 
 ```bash
 # for debian
@@ -94,7 +105,44 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 ```
 
+- If you're on VS Code, set up as follow:
+  - Install extensions:
+    - C/C++ extension pack, which also includes CMake Tools.
+    - Dev container. Optional.
+    - markdownlint. Optional, but essential if writing documents.
+    - Clang-Format.
+    - Vale VSCode. Optional, but essential if writing documents.
+    - YAML. Pretty much unnecessary,
+    only to configure YAML files, such as the .clang-format file.
+    - GitHub Actions. Optional, only useful to check how your GitHub actions go.
+    - GitHub Pull Request. Optional, since, browser.
+  - After that, click the CMake icon on the left-hand-side bar.
+  - In the "Configure" tab, choose the Clang kit.
+  - The extension should know enough to figure out the rest.
+
+> [!NOTE]
+> If CMake throws an error, delete and re-create the `build` directory first.
+>
+
+- If you're on NeoVim or any other editors using clang-analyzer, set up as follow:
+  - Run the convenience script to generate a compile_commands.json:
+
+  ```bash
+  sudo rm -rf ./build
+  ./cmake-default-init.sh
+  # create a symlink at the project root
+  ln -s build/compile_commands.json compile_commands.json
+  ```
+
+  - After that, clang-analyzer should figure itself out.
+
 ### For Windows system
+
+> [!NOTE]
+> This part is mainly for building a Windows-native executable.
+> If you just need to see the thing run,
+> opt for the [dev container](#set-up-development-environment) way.
+>
 
 #### Way 1
 
@@ -103,20 +151,21 @@ sudo usermod -aG docker $USER
 
 #### Way 2
 
+- This sets up your VS Code to build a Windows-native executable.
+- There's a good chance this works on other IDEs also, but mainly VS Code.
+
 > [!NOTE]
-> Make sure to have VS Code installed (which, you should, already)
->
-> [!NOTE]
-> Note down the installation path if needed
->
+> Make sure to have VS Code and Git Bash installed,
+> and also note down installation path if needed.
 
 - Download the following:
 - git
 - MSYS2 [following this link](https://www.mingw-w64.org/downloads/#msys2)
+- Docker. Optional, only for running dev container.
+- choco. Optional, to download Vale, necessary for editing documentation.
 - Then, do as follow:
 
-1. After downloading MSYS2, find the UCRT64 executable and run
-(located at <install_path>\ucrt64.exe, I believe?)
+1. After downloading MSYS2, find the UCRT64 executable and run it.
 2. Inside the UCRT64 terminal, run:
 
   ```bash
@@ -132,12 +181,27 @@ sudo usermod -aG docker $USER
 - After that, you have enough tools to compile this project.
 - Finally, add these tools to the environment variables:
 
-1. Press `Window`, search for "environment variables".
+1. Press `Window`, search for "environment variables."
 2. Click on the first result, which leads to the list of environment variables.
-3. Click "Add", and paste in <install_path>\ucrt64\bin.
+3. Click "Add," and paste in <install_path>\ucrt64\bin.
 4. Close the window.
 
-- Now, clone this repository, and do the setup:
+- If you're on VS Code, set up as follow:
+  - Install extensions:
+    - C/C++ extension pack, which also includes CMake Tools.
+    - Dev container. Optional.
+    - markdownlint. Optional, but essential if writing documents.
+    - Clang-Format.
+    - Vale VSCode. Optional, but essential if writing documents.
+    - YAML. Pretty much unnecessary,
+    only to configure YAML files, such as the .clang-format file.
+    - GitHub Actions. Optional, only useful to check how your GitHub actions go.
+    - GitHub Pull Request. Optional, since, browser.
+  - After that, click the CMake icon on the left-hand-side bar.
+  - In the "Configure" tab, choose the Clang kit.
+  - The extension should know enough to figure out the rest.
+
+- Now, fork this repository, then clone your fork, and do the setup:
 
 1. Open terminal, make sure you're at the root directory of this project.
 2. Run `code .`, which launches VS Code.
@@ -146,47 +210,14 @@ at the root directory of the project.
 4. Open the integrated terminal and run the following to build an executable.
 After that, run the executable:
 
-```pwsh
-cd build
-cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..
-cmake --build .
+```bash
+./cmake-default-init.sh
+cd build && cmake --build .
 ./smoldb.exe
 ```
 
-- It may be necessary to symlink to `build\compile_commands.json`:
-
-1. Run Command Prompt as administrator.
-2. cd to the project's root directory
-3. Run:
-
-```cmd
-mklink compile_commands.json build/compile_commands.json
-```
-
-## Building and testing
-
-> [!WARNING]
-> All the Dockerfiles are currently outdated, and this step won't run.
-> Wait for an update before attempting.
->
-
-- If you have all the dependencies preceding downloaded, simply run:
-
-```bash
-make check
-```
-
-- Otherwise, use Docker:
-
-1. Make sure you're at root directory of this project.
-2. Run:
-
-```bash
-docker build -t smoldb-img .
-docker compose -f test.compose.yml up
-# or docker compose -f cli.compose.yml up to see the CLI in action
-```
-
 > [!NOTE]
-> The two compose files expect the image `smoldb-img`.
+> As of writing this doc, nothing happens when running the executable.
+> But, nothing unexpected.
+> If nothing happens, then it ran without an error.
 >
