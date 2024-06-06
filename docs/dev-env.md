@@ -1,5 +1,10 @@
 # Set up development environment
 
+> [!IMPORTANT]
+> This documentation focuses mainly on setting up VS Code.
+> If you want to set up NeoVim, you can issue a documentation update.
+>
+
 <!--toc:start-->
 - [Set up development environment](#set-up-development-environment)
   - [The lazy way](#the-lazy-way)
@@ -8,6 +13,7 @@
     - [For Windows system](#for-windows-system)
       - [Way 1](#way-1)
       - [Way 2](#way-2)
+    - [How-to](#how-to)
 <!--toc:end-->
 
 - There are 2 ways, the "lazy" way and the "normal" way.
@@ -156,7 +162,7 @@ code .
 > [!NOTE]
 > This part is mainly for building a Windows-native executable.
 > If you just need to see the thing run,
-> opt for the [dev container](#set-up-development-environment) way.
+> opt for the [dev container](#the-lazy-way) way.
 >
 
 #### Way 1
@@ -258,4 +264,54 @@ cmake --install build
 ## How-to
 
 - Build and run the executable
-  - Make sure you have follo
+  - Make sure you have followed the steps preceding.
+  - If you use VS Code, simply navigate to the CMake config menu,
+  and click Build on the smoldb executable.
+  - To build with command-line instead, run the following at the project root:
+
+  ```bash
+  cmake --build build
+  cmake --install build
+  ```
+
+- Debug
+  - First, build the executable in debug mode.
+  - If you're on VS Code, open the Command Palette with `Ctrl+Shift+P`,
+  find "CMake: Debug" and run.
+  - If you use NeoVim, use nvim-dap to debug.
+  - Or, if you're a gigachad and like gdb/lldb in the terminal, do it your way.
+  I have yet to reach that realm.
+
+- Format and lint your code
+  - You can use the convenience script:
+
+  ```bash
+  ./clang-format-lint-all.sh
+  ```
+
+  - In VS Code, you can also do as follow:
+    - Open Settings, find "format on save" and turn it on.
+    Then, every time you save, clang-format does its work.
+    - Then, find "code analysis," and tick the checkbox of
+    C/Cpp > Code analysis > Clang Tidy: Enabled and
+    C/Cpp > Code analysis: Run automatically
+  - This could throw you quite a lot of coding-style errors, as expected.
+
+- Format and lint the Markdown documentation
+  - Make sure to make markdownlint and vale installed.
+    - On VS Code, download the markdownlint and vale extensions,
+    then download the vale command-line tool.
+    - If you haven't, created a directory at your user root called `vale`,
+    and inside that, create a file called .vale.ini.
+    - Add the following to .vale.ini:
+
+    ```yaml
+    StylePath: .
+    Packages: Google
+    ```
+
+    - Save, open the command line, run the following to download the package:
+
+    ```bash
+    vale sync
+    ```
