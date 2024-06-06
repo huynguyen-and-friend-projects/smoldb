@@ -105,6 +105,14 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 ```
 
+- Then fork and clone the project and run:
+
+```bash
+cd smoldb
+code .
+```
+
+- Which opens VS Code at that directory.
 - If you're on VS Code, set up as follow:
   - Install extensions:
     - C/C++ extension pack, which also includes CMake Tools.
@@ -117,12 +125,14 @@ sudo usermod -aG docker $USER
     - GitHub Actions. Optional, only useful to check how your GitHub actions go.
     - GitHub Pull Request. Optional, since, browser.
   - After that, click the CMake icon on the left-hand-side bar.
+  This open the CMake extension menu.
   - In the "Configure" tab, choose the Clang kit.
-  - The extension should know enough to figure out the rest.
+  - In the "Debug" tab, choose either smoldb or smoldb install.
+    - If you choose smoldb install, remember to run this after every build
 
-> [!NOTE]
-> If CMake throws an error, delete and re-create the `build` directory first.
->
+    ```bash
+    cmake --install build
+    ```
 
 - If you're on NeoVim or any other editors using clang-analyzer, set up as follow:
   - Run the convenience script to generate a compile_commands.json:
@@ -132,9 +142,14 @@ sudo usermod -aG docker $USER
   ./cmake-default-init.sh
   # create a symlink at the project root
   ln -s build/compile_commands.json compile_commands.json
+  # build and install
+  cmake --build build && cmake --install build
   ```
 
   - After that, clang-analyzer should figure itself out.
+  - To debug the project, make sure you have nvim dap installed.
+  Preferably, configure C/C++ to use lldb-vscode.
+  - You should debug using the executable.
 
 ### For Windows system
 
@@ -163,6 +178,13 @@ sudo usermod -aG docker $USER
 - MSYS2 [following this link](https://www.mingw-w64.org/downloads/#msys2)
 - Docker. Optional, only for running dev container.
 - choco. Optional, to download Vale, necessary for editing documentation.
+  - To install choco, [follow this documentation](https://chocolatey.org/install#individual)
+  - To install Vale with choco, open Command Prompt as Administrator and run:
+
+  ```pwsh
+  choco install vale
+  ```
+
 - Then, do as follow:
 
 1. After downloading MSYS2, find the UCRT64 executable and run it.
@@ -173,8 +195,9 @@ sudo usermod -aG docker $USER
   # assuming you're on x86_64
   # if you're on an ARM machine, change x86_64 to aarch64
   # compiler
-  pacman -S git gcc clang ninja cmake \
-  mingw-w64-x86_64-clang-tools-extra
+  pacman -S mingw-w64-ucrt-x86_64-clang \
+  mingw-w64-ucrt-x86_64-ninja mingw-w64-ucrt-x86_64-cmake \
+  mingw-w64-ucrt-x86_64-clang-tools-extra
   pacman -Syuu
   ```
 
@@ -184,7 +207,16 @@ sudo usermod -aG docker $USER
 1. Press `Window`, search for "environment variables."
 2. Click on the first result, which leads to the list of environment variables.
 3. Click "Add," and paste in <install_path>\ucrt64\bin.
-4. Close the window.
+4. Close the window and terminal. After that, open Command Prompt.
+5. In Command Prompt, check if it can recognize the packages:
+
+```bash
+clang --version
+ninja --version
+cmake --version
+clang-format --version
+clang-tidy --version
+```
 
 - If you're on VS Code, set up as follow:
   - Install extensions:
@@ -197,23 +229,24 @@ sudo usermod -aG docker $USER
     only to configure YAML files, such as the .clang-format file.
     - GitHub Actions. Optional, only useful to check how your GitHub actions go.
     - GitHub Pull Request. Optional, since, browser.
-  - After that, click the CMake icon on the left-hand-side bar.
-  - In the "Configure" tab, choose the Clang kit.
-  - The extension should know enough to figure out the rest.
 
 - Now, fork this repository, then clone your fork, and do the setup:
 
 1. Open terminal, make sure you're at the root directory of this project.
 2. Run `code .`, which launches VS Code.
-3. In VS Code, create a new directory called "build"
-at the root directory of the project.
-4. Open the integrated terminal and run the following to build an executable.
-After that, run the executable:
+3. In VS Code, find the CMake extension icon. Click on it.
+A config menu is then opened.
+4. Inside CMake configuration menu, click "select kit," and choose the Clang kit.
+It should configure everything for you.
+5. Next, at the Debug section, choose any of them.
+6. Down at the Project Outline menu, click Build on the smoldb executable.
+7. Check that there is an executable inside the directory build.
+8. Run the following command after every rebuild to pull the executable to
+the project root, then run it:
 
-```bash
-./cmake-default-init.sh
-cd build && cmake --build .
-./smoldb.exe
+```pwsh
+cmake --install build
+.\smoldb.exe
 ```
 
 > [!NOTE]
@@ -221,3 +254,8 @@ cd build && cmake --build .
 > But, nothing unexpected.
 > If nothing happens, then it ran without an error.
 >
+
+## How-to
+
+- Build and run the executable
+  - Make sure you have follo
