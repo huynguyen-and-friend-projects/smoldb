@@ -32,9 +32,10 @@ if(CMAKE_BUILD_TYPE STREQUAL Release)
 elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
   message("Building a debug version")
 endif()
-
+message(${CMAKE_SYSTEM_NAME})
 # I tried this flag on Windows and it threw an error, so,
-if(NOT WIN32 AND (CMAKE_BUILD_TYPE STREQUAL Debug))
+if(NOT (WIN32 OR MSYS))
+  message("Not windows")
   add_compile_options(-fsanitize=leak)
 endif()
 
