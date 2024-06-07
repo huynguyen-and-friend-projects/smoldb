@@ -33,10 +33,15 @@ elseif(CMAKE_BUILD_TYPE STREQUAL Debug)
   message("Building a debug version")
 endif()
 message(${CMAKE_SYSTEM_NAME})
+
+option(SANITIZE "Whether to turn on sanitization flags on Unix" OFF)
 # I tried this flag on Windows and it threw an error, so,
-if(NOT (WIN32 OR MSYS))
+if((NOT (WIN32 OR MSYS)) AND (SANITIZE))
   message("Not windows")
   add_compile_options(-fsanitize=leak)
+endif()
+if(CMAKE_BUILD_TYPE STREQUAL Debug)
+  add_compile_options(-fno-inline -fno-omit-frame-pointer)
 endif()
 
 # where all the libraries are
