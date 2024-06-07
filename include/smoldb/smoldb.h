@@ -4,7 +4,7 @@
  * yet.
  */
 
-#ifndef __SMOLDB_H__
-#define __SMOLDB_H__
+#ifndef SMOLDB_H
+#define SMOLDB_H
 
-#endif // !__SMOLDB_H__
+#endif  // !SMOLDB_H
