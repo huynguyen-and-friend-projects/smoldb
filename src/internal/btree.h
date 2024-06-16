@@ -1,6 +1,6 @@
-#ifndef __SMOL_DB_INTERNAL_BTREE_H__
-#define __SMOL_DB_INTERNAL_BTREE_H__
+#ifndef SMOLDB_INTERNAL_BTREE_H
+#define SMOLDB_INTERNAL_BTREE_H
 
 typedef struct BTree BTree;
 
-#endif // !__SMOL_DB_INTERNAL_BTREE_H__
+#endif  // !SMOL_DB_INTERNAL_BTREE_H
