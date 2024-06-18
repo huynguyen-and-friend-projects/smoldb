@@ -5,4 +5,4 @@
 
 SMOL_INTERNAL int smoldb_handle_tokens(const char *cmdline);
 
-#endif // !SMOLDB_INTERNAL_TOKENS_H
+#endif  // !SMOLDB_INTERNAL_TOKENS_H
