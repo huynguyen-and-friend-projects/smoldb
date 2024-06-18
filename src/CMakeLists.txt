@@ -1,5 +1,3 @@
-project(smoldb-entry)
-
 include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/src/cli
                     ${CMAKE_SOURCE_DIR}/src/internal)
 # generate the header with version numbers
