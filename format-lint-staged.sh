@@ -32,7 +32,7 @@ for it in ${staged_files[@]}; do
         fi
     fi
     # format and lint CMake source files
-    grep_ext=$(echo $it | grep -E "(^(CMakeLists.txt)|.*\.(cmake)$)")
+    grep_ext=$(echo $it | grep -E "(^(CMakeLists.txt)$|.*\.(cmake)$)")
     if [ $grep_ext ]; then
         cmake-format $it 1>/dev/null
         cmake-lint $it
