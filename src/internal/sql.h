@@ -3,4 +3,4 @@
 
 typedef struct SqlParser SqlParser;
 
-#endif  // !SMOLDB_INTERNAL_SQL_H
+#endif // !SMOLDB_INTERNAL_SQL_H

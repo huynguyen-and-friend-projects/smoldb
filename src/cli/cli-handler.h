@@ -11,7 +11,7 @@
 /* So that the code runs with Cpp */
 #ifdef __cplusplus
 extern "C" {
-#endif  // __cplusplus
+#endif // __cplusplus
 
 /**
  * @typedef InputBuf
@@ -41,6 +41,6 @@ SMOL_API int smoldb_free_input_buf(InputBuf **buf);
 
 #ifdef __cplusplus
 }
-#endif  // __cplusplus
+#endif // __cplusplus
 
-#endif  // !SMOLDB_CLI_HANDLER_H
+#endif // !SMOLDB_CLI_HANDLER_H
