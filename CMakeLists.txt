@@ -55,7 +55,10 @@ add_subdirectory(src/cli)
 
 # enforce C23 to all static libraries
 add_library(compile-opts INTERFACE)
-target_compile_features(compile-opts INTERFACE c_std_23)
+# MSVC keeps breaking with this c_std_23 thingy
+if(NOT MSVC)
+    target_compile_features(compile-opts INTERFACE c_std_23)
+endif()
 target_compile_options(
     compile-opts INTERFACE "$<${IS_GCC_LIKE}:-Wall;-Wextra;-Wformat=2>"
                            "$<${IS_MSVC}:-W3>" "-pedantic")
