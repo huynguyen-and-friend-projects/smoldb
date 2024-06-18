@@ -1,5 +1,5 @@
 # for generator expressions
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.21)
 project(
     Smoldb
     LANGUAGES C
@@ -59,7 +59,3 @@ target_compile_features(compile-opts INTERFACE c_std_23)
 target_compile_options(
     compile-opts INTERFACE "$<${IS_GCC_LIKE}:-Wall;-Wextra;-Wformat=2>"
                            "$<${IS_MSVC}:-W3>" "-pedantic")
-
-# CMake requires at least 1 source file linked with the executable
-# add_executable(smoldb dummy-file.c) target_link_libraries(smoldb PUBLIC
-# smoldb-entry smoldb-cli smoldb-internal)
