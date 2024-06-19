@@ -3,17 +3,15 @@
  * @brief Declares a set of functions to receive and handle user inputs
  */
 
-#ifndef __SMOLDB_CLI_HANDLER_H__
-#define __SMOLDB_CLI_HANDLER_H__
+#ifndef SMOLDB_CLI_HANDLER_H
+#define SMOLDB_CLI_HANDLER_H
 
 #include "general.h"
-#include "retval.h"
-#include <stdlib.h>
 
 /* So that the code runs with Cpp */
 #ifdef __cplusplus
 extern "C" {
-#endif // __cplusplus
+#endif  // __cplusplus
 
 /**
  * @typedef InputBuf
@@ -49,6 +47,7 @@ SMOL_API int prompt_prototype(InputBuf *buf);
 
 #ifdef __cplusplus
 }
-#endif // __cplusplus
+#endif  // __cplusplus
 
-#endif // !SMOLDB_CLI_HANDLER_H
+#endif  // !SMOLDB_CLI_HANDLER_H
+

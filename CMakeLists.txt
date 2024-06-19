@@ -5,9 +5,12 @@ project(
   LANGUAGES C
   VERSION 0.0)
 
-# enforcing some standards
-set(CMAKE_C_STANDARD 23)
-set(CMAKE_C_STANDARD_REQUIRED True)
+# MSVC somehow breaks at this option
+if(NOT MSVC)
+  # enforcing some standards
+  set(CMAKE_C_STANDARD 23)
+  set(CMAKE_C_STANDARD_REQUIRED True)
+endif()
 
 # build steps for this project:
 

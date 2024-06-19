@@ -1,9 +1,11 @@
 #include "cli-handler.h"
-#include "retval.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+
+#include "retval.h"
 
 struct InputBuf {
   char *buffer;
@@ -42,13 +44,14 @@ int prompt_prototype(InputBuf *buf){
 }
 
 int smoldb_new_input_buf(InputBuf **buf) {
-  if (buf == NULL)
+  if (buf == NULL) {
     return SMOLDB_NULL_PTR_TO_REF_ERR;
-  //trả về một pointer mà trỏ đến bộ nhớ, *buf có giá trị là địa chỉ, hay nó là con trỏ trỏ vào InputBuf.
-  //** **buf --> *buf --> Memory for InputBuf */
-  (*buf) = (InputBuf *)malloc(sizeof(InputBuf)); 
-  if ((*buf) == NULL)
+  }
+
+  (*buf) = (InputBuf *)malloc(sizeof(InputBuf));
+  if ((*buf) == NULL) {
     return SMOLDB_ALLOC_ERR;
+  }
 
   (*buf)->buffer = NULL;
   (*buf)->buf_len = 0;
@@ -74,8 +77,9 @@ static int smoldb_input_buf_read(InputBuf *buf, const char *input){
 }
 
 int smoldb_free_input_buf(InputBuf **buf) {
-  if (buf == NULL)
+  if (buf == NULL) {
     return SMOLDB_ALLOC_SUCCESS;
+  }
 
   free((*buf)->buffer);
   (*buf)->buffer = NULL;

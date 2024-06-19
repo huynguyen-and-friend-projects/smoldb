@@ -1,6 +1,6 @@
-#ifndef __SMOLDB_INTERNAL_SQL_H__
-#define __SMOLDB_INTERNAL_SQL_H__
+#ifndef SMOLDB_INTERNAL_SQL_H
+#define SMOLDB_INTERNAL_SQL_H
 
 typedef struct SqlParser SqlParser;
 
-#endif // !__SMOLDB_INTERNAL_SQL_H__
+#endif  // !SMOLDB_INTERNAL_SQL_H

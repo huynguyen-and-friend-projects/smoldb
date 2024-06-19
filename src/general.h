@@ -1,10 +1,10 @@
-#ifndef __SMOLDB_GENERAL_H__
-#define __SMOLDB_GENERAL_H__
+#ifndef SMOLDB_GENERAL_H
+#define SMOLDB_GENERAL_H
 
 #define Smoldb_VERSION_MAJOR "0"
 #define Smoldb_VERSION_MINOR "0"
 
 #define SMOL_API extern
-#define SMOL_INTERNAL static
+#define SMOL_INTERNAL extern
 
-#endif // !__SMOLDB_GENERAL_H__
+#endif  // !SMOLDB_GENERAL_H
