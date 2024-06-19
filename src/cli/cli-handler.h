@@ -43,7 +43,7 @@ SMOL_API int smoldb_free_input_buf(InputBuf **buf);
 /**
  * @brief Prototype to handle prompt
 */
-SMOL_API int prompt_prototype(InputBuf *buf);
+SMOL_API int prompt_prototype(InputBuf *buf, int argc, char *args[]);
 
 #ifdef __cplusplus
 }

@@ -12,42 +12,41 @@ struct InputBuf {
   size_t buf_len;
 };
 
-// int prompt_prototype(int argc, char *args[]){
-//   printf("Welcome to Mogwarts database!\n");
-//   if (argc == 2 && strcmp(args[1], "exit") != 0 ){
-//     while (true){
-//       printf(">>> ");
-//       char prompt_input[1000];
-//       scanf("%s", prompt_input);
-//       // if (result == 1){
-//       //   printf("Try again, using rizz!\n");
-//       //   continue;
-//       // }
-//       if (strcmp(prompt_input, "mogging") == 0){
-//         printf("Bro can rizz now!\n");
-//         exit(0);
-//         return 0;
-//       }
-//     }
-//   }
-//   printf("Bro is NOT Jordan Barrett\n");
-//   exit(1);
-//   return 1;
-// }
+static int smoldb_input_buf_read(InputBuf *buf, const char *input);
 
-int prompt_prototype(InputBuf *buf){
-  if(buf == NULL){
-    perror("Saddam Hussein would like to know your coordinates\n");
-    return 1;
+/**
+ * @brief This function handle the input of user and create a prompt 
+ * @param buf for buffer, argc = number of arguments, *args[] = array of arguments
+ * @return status: 0 = success, 1 = failed
+ */
+int prompt_prototype(InputBuf *buf, int argc, char *args[]){
+  if (buf == NULL){
+    perror("Point to NULL");
+    return SMOLDB_NULL_PTR_TO_REF_ERR;
+  };
+  printf("Welcome to Mogwarts university\n");
+  if (argc == 2 && strcmp(args[1], "exit") != 0){
+    while (true){
+      printf(">>> ");
+      char prompt_input[1000];
+      scanf("%s", prompt_input);
+      smoldb_input_buf_read(buf, prompt_input);
+      if (strcmp(prompt_input, "mogging") == 0){
+        printf("Bro can rizz now!\n");
+        exit(0);
+        return 0;        
+      }
+    }
   }
-
+  printf("Bro is NOT Jordan Barrett\n");
+  exit(1);
+  return 1;
 }
 
 int smoldb_new_input_buf(InputBuf **buf) {
   if (buf == NULL) {
     return SMOLDB_NULL_PTR_TO_REF_ERR;
   }
-
   (*buf) = (InputBuf *)malloc(sizeof(InputBuf));
   if ((*buf) == NULL) {
     return SMOLDB_ALLOC_ERR;
@@ -66,15 +65,20 @@ int smoldb_new_input_buf(InputBuf **buf) {
  * @return SMOLDB_ALLOC_SUCCESS if succeeded, SMOLDB_ALLOC_ERR if fail
  */
 static int smoldb_input_buf_read(InputBuf *buf, const char *input){
-  int len = strlen(input);
-  buf->buffer = realloc(buf->buffer, len + 1);
-  if(buf->buffer == NULL){
-    perror("Error allocating memory\n");
+  if (buf == NULL){
+    perror("Point to NULL!");
+    return SMOLDB_NULL_PTR_TO_REF_ERR;
+  }
+  int length = strlen(input);
+  buf->buffer = realloc(buf->buffer, length + 1);
+  if (buf->buffer == NULL){
+    perror("Error allocating memory!");
     return SMOLDB_ALLOC_ERR;
   }
-  strncpy(buf->buffer, input, len);
+  strncpy(buf->buffer, input, length);
   return SMOLDB_ALLOC_SUCCESS;
 }
+
 
 int smoldb_free_input_buf(InputBuf **buf) {
   if (buf == NULL) {

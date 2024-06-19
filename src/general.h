@@ -5,6 +5,6 @@
 #define Smoldb_VERSION_MINOR "0"
 
 #define SMOL_API extern
-#define SMOL_INTERNAL extern
+#define SMOL_INTERNAL static
 
 #endif  // !SMOLDB_GENERAL_H
