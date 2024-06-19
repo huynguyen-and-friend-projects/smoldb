@@ -28,6 +28,7 @@ typedef struct InputBuf InputBuf;
  * @param buf The pointer to the address of the input buffer to be allocated
  * memory
  * @return 0 if successful, something else if error, defined in retval.h
+ * SMOL_API là một extern, có nghĩa là nó đảm bảo cho file header rằng hàm này sẽ được chạy ở một file nào đó
  */
 SMOL_API int smoldb_new_input_buf(InputBuf **buf);
 
@@ -41,8 +42,13 @@ SMOL_API int smoldb_new_input_buf(InputBuf **buf);
  */
 SMOL_API int smoldb_free_input_buf(InputBuf **buf);
 
+/**
+ * @brief Prototype to handle prompt
+*/
+SMOL_API int prompt_prototype(InputBuf *buf);
+
 #ifdef __cplusplus
 }
 #endif // __cplusplus
 
-#endif // !__SMOLDB_CLI_HANDLER_H__
+#endif // !SMOLDB_CLI_HANDLER_H

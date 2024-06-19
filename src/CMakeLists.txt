@@ -11,4 +11,4 @@ add_executable(smoldb ${ENTRY_SRC})
 target_link_libraries(smoldb smoldb-cli smoldb-internal)
 
 # add the executable to root directory for easier execution
-install(TARGETS smoldb DESTINATION ${CMAKE_SOURCE_DIR})
+add_custom_command(TARGET smoldb POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:smoldb>" "${CMAKE_SOURCE_DIR}/$<TARGET_FILE_NAME:smoldb>")
