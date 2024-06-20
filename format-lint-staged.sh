@@ -40,10 +40,19 @@ for it in ${staged_files[@]}; do
             cmake_lint_ret_code=1
         fi
     fi
+    #format and lint Markdown files
+    grep_ext=$(echo $it | grep -E "^(md)$")
+    if [ $grep_ext ]; then
+        vale $it
+        markdownlint $it
+        if (( $? != 0 )); then
+            markdown_ret_code=1
+        fi
+    fi 
 done
 
 # if there's no error, $clang_tidy_ret_code would be empty since there's nothing named clang_tidy_ret_code, so [ $clang_tidy_ret_code ] is wrong
-if [ $clang_tidy_ret_code ] || [ $cmake_lint_ret_code ]; then
+if [ $clang_tidy_ret_code ] || [ $cmake_lint_ret_code ] || [ $markdown_ret_code ]; then
     echo "Linter error, please fix :("
     exit 1
 fi
