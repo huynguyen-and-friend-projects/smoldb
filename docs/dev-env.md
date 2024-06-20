@@ -41,11 +41,10 @@
 > When you exit the dev container, be sure to re-configure CMake build
 > with the convenience script. If you're on Windows, use git bash
 >
-> ```bash
-> sudo rm -rf ./build
-> ./cmake-default-init.sh
-> ```
->
+```bash
+sudo rm -rf ./build
+./cmake-default-init.sh
+```
 
 ## The normal way
 
