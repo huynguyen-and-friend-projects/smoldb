@@ -59,5 +59,17 @@ if(NOT MSVC)
     target_compile_features(compile-opts INTERFACE c_std_23)
 endif()
 target_compile_options(
-    compile-opts INTERFACE "$<${IS_GCC_LIKE}:-Wall;-Wextra;-Wformat=2>"
-                           "$<${IS_MSVC}:-W3>" "-pedantic")
+    compile-opts
+    INTERFACE "$<${IS_GCC_LIKE}:-Wall;-Wextra;-Wformat=2;-pedantic>"
+              "$<${IS_MSVC}:/Wall;/Za>")
+
+# options to be included when debugging
+if(CMAKE_BUILD_TYPE STREQUAL "Debug" OR CMAKE_BUILD_TYPE STREQUAL
+                                        "RelWithDebInfo")
+    target_compile_definitions(
+        compile-opts INTERFACE "$<${IS_GCC_LIKE}:-D_FORTIFY_SOURCE=2>"
+                               "$<${IS_MSVC}:/GS>")
+    # Og is necessary for some reason, due to D_FORTIFY_SOURCE
+    target_compile_options(compile-opts INTERFACE "$<${IS_GCC_LIKE}:-Og>"
+                                                  "$<${IS_MSVC}:/Og>")
+endif()
