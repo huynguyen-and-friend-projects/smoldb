@@ -30,20 +30,25 @@ for it in ${staged_files[@]}; do
         if (($? != 0)); then
             clang_tidy_ret_code=1 # could be any number
         fi
+        continue
     fi
     # format and lint CMake source files
-    grep_ext=$(echo $it | grep -E "(^(CMakeLists.txt)$|.*\.(cmake)$)")
+    grep_ext=$(echo $file_ext | grep -E "(^(CMakeLists.txt)$|.*\.(cmake)$)")
     if [ $grep_ext ]; then
         cmake-format $it 1>/dev/null
         cmake-lint $it
         if (( $? != 0 )); then
             cmake_lint_ret_code=1
         fi
+        continue
     fi
     #format and lint Markdown files
-    grep_ext=$(echo $it | grep -E "^(md)$")
+    grep_ext=$(echo $file_ext | grep -E "^(md)$")
     if [ $grep_ext ]; then
         vale $it
+        if (( $? != 0 )); then
+            markdown_ret_code=1
+        fi
         markdownlint $it
         if (( $? != 0 )); then
             markdown_ret_code=1
