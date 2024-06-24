@@ -8,8 +8,6 @@
 #include <time.h>  // For usleep function
 #include "retval.h"
 
-// I will define some styling here:
-
 #define RESET_ALL "\033[0m"
 
 /* List of colors */
@@ -101,13 +99,11 @@ int prompt_prototype(InputBuf *buf, int argc, char *args[]){
       smoldb_input_buf_read(buf, prompt_input);
       if (strcmp(prompt_input, "mogging") == 0){
         printf(YELLOW BOLD "Bro can rizz now!\n" RESET_ALL);
-        exit(0);
         return 0;        
       }
     }
   }
   printf(BOLD "\nBro is NOT Jordan Barrett\n" RESET_ALL);
-  exit(1);
   return 1;
 }
 
