@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-// #include <unistd.h>
-
+#include <ctype.h>
+#include <time.h>  // For usleep function
 #include "retval.h"
 
 // I will define some styling here:
@@ -31,12 +31,41 @@
 #define ITALIC "\033[3m"
 #define UNDERLINE "\033[4m"
 #define STRIKETHROUGH "\033[9m" 
-
+#define CLEAR_SCREEN "\033[H\033[J"
 
 struct InputBuf {
   char *buffer;
   size_t buf_len;
 };
+
+void animate_intro() {
+    char intro[] = "Welcome to Mogwarts University!";
+    int len = strlen(intro);
+    int index = 0;
+
+    while (index < len) {
+        printf(CLEAR_SCREEN);  // Clear the console
+        printf(GREEN BOLD);    // Set text color and style
+
+        for (int i = 0; i < len; i++) {
+            if (i == index) {
+                printf("%c", toupper(intro[i]));  // Uppercase the current character
+            } else {
+                printf("%c", intro[i]);
+            }
+        }
+
+        printf(RESET_ALL);  // Reset text attributes
+        fflush(stdout);     // Flush the output buffer
+        // Create a timespec structure for nanosleep
+        struct timespec req;
+        req.tv_sec = 0;
+        req.tv_nsec = 100000000L;  // 100 milliseconds
+        nanosleep(&req, NULL);     // Sleep for the specified time
+        index++;            // Move to the next character
+    }
+    printf("\n");
+}
 
 static int smoldb_input_buf_read(InputBuf *buf, const char *input);
 
@@ -50,36 +79,25 @@ int prompt_prototype(InputBuf *buf, int argc, char *args[]){
     perror(RED BOLD "Point to NULL\n" RESET_ALL);
     return SMOLDB_NULL_PTR_TO_REF_ERR;
   };
-  // want to make animatic greetings.
-  // char intro[] = "Welcome to Mogwarts university!";
-  // int index = 0;
-  // int len = strlen(intro);
-  // while (true){
-  //   // Print the string with ANSI codes
-  //   printf(GREEN BOLD);
-  //   // Change the case of the current character
-  //   for (int i = 0; i < len; i++) {
-  //       if (i == index % len) {
-  //           printf("%c", toupper(intro[i]));
-  //       } else {
-  //           printf("%c", intro[i]);
-  //       }
-  //   }
-  //   // Reset the text attributes
-  //   printf(RESET_ALL);
-  //   // Move to the next character
-  //   index++;
-  //   // Wait for a short period
-  //   usleep(100000); // Sleep for 100,000 microseconds (0.1 seconds)
-  //   // Move the cursor to the beginning of the line
-  //   printf("\r");
-  // }
-  printf(GREEN BOLD "Welcome to Mogwarts university\n" RESET_ALL);
+  animate_intro();
+  printf(YELLOW BOLD "~~What do you want to learn to day?~~ \n" RESET_ALL);
   if (argc == 2 && strcmp(args[1], "exit") != 0){
     while (true){
       printf(">>> ");
       char prompt_input[1000];
-      scanf("%s", prompt_input);
+      // Read the entire line
+      if (fgets(prompt_input, sizeof(prompt_input), stdin) == NULL) {
+          break;  // Handle EOF if needed
+      }
+      // Remove the newline character at the end of the input
+      size_t len = strlen(prompt_input);
+      if (len > 0 && prompt_input[len - 1] == '\n') {
+          prompt_input[len - 1] = '\0';
+      }
+
+      if (strcmp(prompt_input, "") == 0) {
+          continue;  // If input is empty, display the prompt again
+      }
       smoldb_input_buf_read(buf, prompt_input);
       if (strcmp(prompt_input, "mogging") == 0){
         printf(YELLOW BOLD "Bro can rizz now!\n" RESET_ALL);
@@ -88,7 +106,7 @@ int prompt_prototype(InputBuf *buf, int argc, char *args[]){
       }
     }
   }
-  printf(BOLD "Bro is NOT Jordan Barrett\n" RESET_ALL);
+  printf(BOLD "\nBro is NOT Jordan Barrett\n" RESET_ALL);
   exit(1);
   return 1;
 }
