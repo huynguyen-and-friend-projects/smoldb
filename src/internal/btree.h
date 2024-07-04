@@ -3,4 +3,4 @@
 
 typedef struct BTree BTree;
 
-#endif // !SMOL_DB_INTERNAL_BTREE_H
+#endif  // !SMOL_DB_INTERNAL_BTREE_H

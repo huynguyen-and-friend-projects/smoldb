@@ -1,9 +1,8 @@
 #ifndef SMOLDB_INTERNAL_TOKENS_H
 #define SMOLDB_INTERNAL_TOKENS_H
 
-typedef enum {
-    TOKEN_ENDL = 0, // ;
-    TOKEN_QUOTE, // ' or "
-} TOKEN_TYPE;
+#include "general.h"
 
-#endif // !SMOLDB_INTERNAL_TOKENS_H
+SMOL_INTERNAL int smoldb_handle_tokens(const char *cmdline);
+
+#endif  // !SMOLDB_INTERNAL_TOKENS_H

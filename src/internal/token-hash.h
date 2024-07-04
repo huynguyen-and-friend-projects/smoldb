@@ -3,4 +3,4 @@
 
 typedef struct TokenHashTable TokenHashTable;
 
-#endif // !SMOLDB_INTERNAL_TOKEN_HASH_H
+#endif  // !SMOLDB_INTERNAL_TOKEN_HASH_H
