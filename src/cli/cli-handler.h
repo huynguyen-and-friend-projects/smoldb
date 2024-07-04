@@ -43,12 +43,12 @@ SMOL_API int smoldb_new_input_buf(InputBuf **buf);
 /**
  * @brief Set default values for an InputBuf.
  *
- * NOTE: Works for stack-allocated InputBuf. In fact, any stack-allocated InputBufs
- * should be passed into this function.
+ * NOTE: Works for stack-allocated InputBuf. In fact, any stack-allocated
+ * InputBufs should be passed into this function.
  *
- * @param buf 
+ * @param buf
  */
-SMOL_API void smoldb_default_input_buf(InputBuf *buf);
+SMOL_API int smoldb_default_input_buf(InputBuf *buf);
 
 /**
  * @brief Free heap-allocated memory to the input buffer specified, if any, and
@@ -61,6 +61,17 @@ SMOL_API void smoldb_default_input_buf(InputBuf *buf);
  * @return 0 if successful or if buf is NULL (hence nothing to remove)
  */
 SMOL_API int smoldb_free_input_buf(InputBuf **buf);
+
+/**
+ * @brief Frees heap-allocated memory inside an InputBuf.
+ *
+ * NOTE: Call this for stack-allocated InputBuf. For heap-allocated InputBuf,
+ * one can call the smoldb_free_input_buf method to free the entire InputBuf.
+ *
+ * @param buf 
+ * @return 
+ */
+SMOL_API int smoldb_clean_input_buf(InputBuf *buf);
 
 #ifdef __cplusplus
 }

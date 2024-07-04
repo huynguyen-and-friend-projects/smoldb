@@ -23,15 +23,27 @@ int smoldb_free_input_buf(InputBuf **buf) {
     return SMOLDB_ALLOC_SUCCESS;
   }
 
-  free((*buf)->buffer);
-  (*buf)->buffer = NULL;
+  smoldb_clean_input_buf(*buf);
   free((*buf));
   (*buf) = NULL;
 
   return SMOLDB_ALLOC_SUCCESS;
 }
 
-void smoldb_default_input_buf(InputBuf *buf) {
+int smoldb_default_input_buf(InputBuf *buf) {
+    if(buf == NULL){
+        return SMOLDB_NULL_PTR_ERR;
+    }
   buf->buffer = NULL;
   buf->buf_len = 0;
+  return SMOLDB_SUCCESS;
+}
+
+int smoldb_clean_input_buf(InputBuf *buf) {
+    if(buf == NULL) {
+        return SMOLDB_SUCCESS;
+    }
+    free(buf->buffer);
+    buf->buffer = NULL;
+    return SMOLDB_SUCCESS;
 }
