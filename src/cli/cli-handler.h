@@ -7,11 +7,16 @@
 #define SMOLDB_CLI_HANDLER_H
 
 #include "general.h"
+#include <stdlib.h>
 
 /* So that the code runs with Cpp */
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
+struct InputBuf {
+  char *buffer;
+  size_t buf_len;
+};
 
 /**
  * @typedef InputBuf
@@ -28,6 +33,13 @@ typedef struct InputBuf InputBuf;
  * @return 0 if successful, something else if error, defined in retval.h
  */
 SMOL_API int smoldb_new_input_buf(InputBuf **buf);
+
+/**
+ * @brief Set default values for an InputBuf. Works for stack-allocated InputBuf.
+ *
+ * @param buf 
+ */
+SMOL_API void smoldb_default_input_buf(InputBuf *buf);
 
 /**
  * @brief Free memory allocated to the input buffer specified, if any, and

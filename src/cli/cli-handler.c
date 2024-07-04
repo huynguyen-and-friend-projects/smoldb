@@ -4,11 +4,6 @@
 
 #include "retval.h"
 
-struct InputBuf {
-  char *buffer;
-  size_t buf_len;
-};
-
 int smoldb_new_input_buf(InputBuf **buf) {
   if (buf == NULL) {
     return SMOLDB_NULL_PTR_TO_REF_ERR;
@@ -19,9 +14,7 @@ int smoldb_new_input_buf(InputBuf **buf) {
     return SMOLDB_ALLOC_ERR;
   }
 
-  (*buf)->buffer = NULL;
-  (*buf)->buf_len = 0;
-
+  smoldb_default_input_buf(*buf);
   return SMOLDB_ALLOC_SUCCESS;
 }
 
@@ -36,4 +29,9 @@ int smoldb_free_input_buf(InputBuf **buf) {
   (*buf) = NULL;
 
   return SMOLDB_ALLOC_SUCCESS;
+}
+
+void smoldb_default_input_buf(InputBuf *buf) {
+  buf->buffer = NULL;
+  buf->buf_len = 0;
 }
