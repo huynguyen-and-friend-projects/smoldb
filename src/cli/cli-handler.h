@@ -13,20 +13,26 @@
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
+/**
+ * @typedef InputBuf
+ * @brief Holds information about user input or input from stdin
+ *
+ * WARNING: do NOT modify the fields inside. This should be done through
+ * API calls.
+ * NOTE: You can still get the values inside. Just don't modify them.
+ * TODO: Add more API to change values inside InputBuf
+ */
 struct InputBuf {
   char *buffer;
   size_t buf_len;
 };
 
-/**
- * @typedef InputBuf
- * @brief Holds information about user input or input from stdin
- *
- */
 typedef struct InputBuf InputBuf;
 
 /**
- * @brief Allocate memory for a new input buffer
+ * @brief Heap-allocate memory for a new input buffer, and set defaults values.
+ *
+ * The defaults set by this function is the same as smoldb_default_input_buf.
  *
  * @param buf The pointer to the address of the input buffer to be allocated
  * memory
@@ -35,15 +41,20 @@ typedef struct InputBuf InputBuf;
 SMOL_API int smoldb_new_input_buf(InputBuf **buf);
 
 /**
- * @brief Set default values for an InputBuf. Works for stack-allocated InputBuf.
+ * @brief Set default values for an InputBuf.
+ *
+ * NOTE: Works for stack-allocated InputBuf. In fact, any stack-allocated InputBufs
+ * should be passed into this function.
  *
  * @param buf 
  */
 SMOL_API void smoldb_default_input_buf(InputBuf *buf);
 
 /**
- * @brief Free memory allocated to the input buffer specified, if any, and
+ * @brief Free heap-allocated memory to the input buffer specified, if any, and
  * points the pointer to NULL.
+ *
+ * WARNING: you don't and should NOT pass in a stack-allocated InputBuf.
  *
  * @param buf The pointer to the address of the input buffer to be freed
  * memory. After being freed, (*buf) = NULL.
