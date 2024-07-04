@@ -19,7 +19,7 @@ typedef enum SMOL_GENERAL_RETVAL {
  *
  */
 typedef enum SMOL_ALLOC_RETVAL {
-  /* Nothing special happened, and allocation was successful */
+  /* Nothing special happened, and allocation/deallocation was successful */
   SMOLDB_ALLOC_SUCCESS = 0,
 
   /* Malloc failed and returned NULL */
