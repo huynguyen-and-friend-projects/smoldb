@@ -7,4 +7,4 @@
 #define SMOL_API extern
 #define SMOL_INTERNAL extern
 
-#endif  // !SMOLDB_GENERAL_H
+#endif // !SMOLDB_GENERAL_H
