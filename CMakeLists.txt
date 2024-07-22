@@ -50,7 +50,6 @@ endif()
 # where all the libraries are
 add_subdirectory(src)
 # add_subdirectory(src/c-api)
-add_subdirectory(src/internal)
 add_subdirectory(src/cli)
 
 # enforce C23 to all static libraries
