@@ -51,6 +51,7 @@ endif()
 add_subdirectory(src)
 # add_subdirectory(src/c-api)
 add_subdirectory(src/cli)
+add_subdirectory(submodule)
 
 # enforce C23 to all static libraries
 add_library(compile-opts INTERFACE)
