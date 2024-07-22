@@ -21,4 +21,4 @@
 
 - [ ] A shell to input commands.
 - [ ] A simple SQL parser.
-- [ ] B-tree to store data.
+- [ ] B-tree to store data. :hourglass: In progress, checkout [this subproject](https://github.com/huynguyen-and-friend-projects/b-tree)

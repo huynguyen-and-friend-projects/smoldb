@@ -24,26 +24,40 @@ for it in ${staged_files[@]}; do
     grep_ext=$(echo $file_ext | grep -E "(^[ch](pp|xx)?$|^(cc|hh)$)")
     # $it is a source file, so $grep_ext is not empty
     if [ $grep_ext ]; then
-        clang-format $it
+        clang-format -i $it
         clang-tidy $it
         # clang-tidy complains
         if (($? != 0)); then
             clang_tidy_ret_code=1 # could be any number
         fi
+        continue
     fi
     # format and lint CMake source files
-    grep_ext=$(echo $it | grep -E "(^(CMakeLists.txt)|.*\.(cmake)$)")
+    grep_ext=$(echo $file_ext | grep -E "(^(CMakeLists.txt)$|.*\.(cmake)$)")
     if [ $grep_ext ]; then
         cmake-format $it 1>/dev/null
         cmake-lint $it
         if (( $? != 0 )); then
             cmake_lint_ret_code=1
         fi
+        continue
     fi
+    #format and lint Markdown files
+    grep_ext=$(echo $file_ext | grep -E "^(md)$")
+    if [ $grep_ext ]; then
+        vale $it
+        if (( $? != 0 )); then
+            markdown_ret_code=1
+        fi
+        markdownlint $it
+        if (( $? != 0 )); then
+            markdown_ret_code=1
+        fi
+    fi 
 done
 
 # if there's no error, $clang_tidy_ret_code would be empty since there's nothing named clang_tidy_ret_code, so [ $clang_tidy_ret_code ] is wrong
-if [ $clang_tidy_ret_code ] || [ $cmake_lint_ret_code ]; then
+if [ $clang_tidy_ret_code ] || [ $cmake_lint_ret_code ] || [ $markdown_ret_code ]; then
     echo "Linter error, please fix :("
     exit 1
 fi
