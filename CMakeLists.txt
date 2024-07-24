@@ -5,7 +5,8 @@ project(
     LANGUAGES C CXX
     VERSION 0.0.1)
 
-if(NOT CMAKE_C_STANDARD)
+if(NOT CMAKE_C_STANDARD AND NOT MSVC)
+    # goodness MSVC what have you been doing
     set(CMAKE_C_STANDARD 23)
     set(CMAKE_C_STANDARD_REQUIRED ON)
 endif()
