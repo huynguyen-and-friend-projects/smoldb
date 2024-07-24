@@ -24,7 +24,7 @@ for it in ${staged_files[@]}; do
     grep_ext=$(echo $file_ext | grep -E "(^[ch](pp|xx)?$|^(cc|hh)$)")
     # $it is a source file, so $grep_ext is not empty
     if [ $grep_ext ]; then
-        clang-format $it
+        clang-format -i $it
         clang-tidy $it
         # clang-tidy complains
         if (($? != 0)); then
