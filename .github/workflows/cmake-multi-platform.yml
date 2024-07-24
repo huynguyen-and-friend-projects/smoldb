@@ -81,12 +81,12 @@ jobs:
     - name: Find conan_toolchain (Linux)
       if: matrix.os == 'ubuntu-latest'
       run: >
-        export toolchain=`find ${{ github.workspace }} -name 'conan_toolchain.cmake' | head -1`
+        export toolchain=`find ${{ github.workspace }} -name 'conan_toolchain.cmake'`
 
     - name: Find conan_toolchain (Windows)
       if: matrix.os == 'windows-latest'
       run: >
-        $toolchain=Get-ChildItem -Path "${{ steps.strings.outputs.build-output-dir }}" -Recurse -Include conan_toolchain.cmake -Name | Select-Object -First 1
+        $toolchain=Get-ChildItem -Path '${{ github.workspace }}' -Recurse -Include 'conan_toolchain.cmake' -Name
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
