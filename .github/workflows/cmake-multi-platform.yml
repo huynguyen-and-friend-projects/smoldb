@@ -69,7 +69,8 @@ jobs:
 
     - name: Install conan packages
       run: |
-        conan install . -s build_type=${{ matrix.build_type }} --build=missing
+        # I found that build_type=Release is extremely unreliable for gtest
+        conan install . -s build_type=Debug --build=missing
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.

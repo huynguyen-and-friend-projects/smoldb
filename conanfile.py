@@ -4,7 +4,7 @@ from conan.tools.cmake import cmake_layout, CMake
 class SmoldbRecipe(ConanFile):
     name = "smoldb"
     version = "0.0.1"
-    settings = "os", "compiler", "build_type", "arch"
+    settings = "os", "build_type", "arch"
     generators = "CMakeDeps", "CMakeToolchain"
     options = {
             "install_gtest": [True, False],
