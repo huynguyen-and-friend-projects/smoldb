@@ -50,13 +50,6 @@ jobs:
         submodules: "true"
         token: ${{ secrets.PAT_TOKEN }}
 
-    - name: Set reusable strings
-      # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
-      id: strings
-      shell: bash
-      run: |
-        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
-
     - name: Install conan
       run: |
         pip install conan
@@ -78,11 +71,12 @@ jobs:
       run: |
         conan install . -s build_type=${{ matrix.build_type }} --build=missing
 
-    - name: Find conan_toolchain
-      if: matrix.os == 'ubuntu-latest'
-      shell: bash
+    - name: Set reusable strings
+      # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
       id: strings
-      run: >
+      shell: bash
+      run: |
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
         echo "toolchain=`find ${{ github.workspace }} -name 'conan_toolchain.cmake'`" >> "$GITHUB_OUTPUT"
 
     - name: Configure CMake 
