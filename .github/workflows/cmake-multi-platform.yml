@@ -66,7 +66,7 @@ jobs:
     - name: Reconfigure conan (clang)
       if: matrix.c_compiler == 'clang'
       run: |
-        printf\
+        printf \
         "[settings]\n\
         arch=x86_64\n\
         build_type=Release\n\
@@ -83,8 +83,6 @@ jobs:
         cmake -B ${{ steps.strings.outputs.build-output-dir }}
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
-        -DCMAKE_CXX_STANDARD=23
-        -DCMAKE_C_STANDARD=23
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -S ${{ github.workspace }}
         -DCMAKE_TOOLCHAIN_FILE="$(find ${{ github.workspace }} -name 'conan_toolchain.cmake' | head -1)"
@@ -97,11 +95,9 @@ jobs:
         cmake -B ${{ steps.strings.outputs.build-output-dir }}
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
-        -DCMAKE_CXX_STANDARD=23
-        -DCMAKE_C_STANDARD=23
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -S ${{ github.workspace }}
-        -DCMAKE_TOOLCHAIN_FILE="(Get-ChildItem -Path "${{ steps.strings.outputs.build-output-dir }}" -Recurse -Include conan_toolchain.cmake -Name | Select-Object -First 1)"
+        -DCMAKE_TOOLCHAIN_FILE="$(Get-ChildItem -Path "${{ steps.strings.outputs.build-output-dir }}" -Recurse -Include conan_toolchain.cmake -Name | Select-Object -First 1)"
 
     - name: Build
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
