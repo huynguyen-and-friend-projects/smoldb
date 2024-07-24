@@ -66,7 +66,7 @@ jobs:
     - name: Reconfigure conan (clang)
       if: matrix.c_compiler == 'clang'
       run: |
-        printf 
+        printf\
         "[settings]\n\
         arch=x86_64\n\
         build_type=Release\n\
