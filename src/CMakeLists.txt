@@ -1,17 +1,9 @@
-include_directories(${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/src/cli
-                    ${CMAKE_SOURCE_DIR}/src/internal)
-# generate the header with version numbers
-configure_file(general.h.in ${CMAKE_SOURCE_DIR}/src/general.h)
+add_subdirectory(general)
+add_subdirectory(cli)
+add_subdirectory(c-api)
 
 set(ENTRY_SRC entry.c)
 
 add_executable(smoldb ${ENTRY_SRC})
-target_link_libraries(smoldb smoldb-cli)
-
-# add the executable to root directory for easier execution
-add_custom_command(
-    TARGET smoldb
-    COMMENT "Copy the executable to project root"
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:smoldb>"
-            "${PROJECT_SOURCE_DIR}/$<TARGET_FILE_NAME:smoldb>")
+target_link_libraries(smoldb PRIVATE smoldb-cli smoldb-compile-opts)
+target_include_directories(smoldb INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})

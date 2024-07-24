@@ -1,7 +1,6 @@
-include_directories(${CMAKE_SOURCE_DIR}/src/internal/ ${CMAKE_SOURCE_DIR}/src/)
-
 set(CLI_SRC cli-handler.c)
 
-add_library(smoldb-cli STATIC ${CLI_SRC})
+add_library(smoldb-cli ${CLI_SRC})
+target_include_directories(smoldb-cli INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_directories(smoldb-cli INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(smoldb-cli PUBLIC compile-opts)
+target_link_libraries(smoldb-cli PUBLIC smoldb-general PRIVATE smoldb-compile-opts)
