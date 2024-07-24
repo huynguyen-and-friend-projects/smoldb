@@ -61,7 +61,6 @@ jobs:
       run: |
         pip install conan
         conan profile detect --force
-        conan install . -s build_type=${{ matrix.build_type }} --build=missing
 
     - name: Reconfigure conan (clang)
       if: matrix.c_compiler == 'clang'
@@ -75,8 +74,21 @@ jobs:
         compiler.version=18\
         os=Linux" > /home/runner/.conan2/profiles/default
 
-    - name: Configure CMake
+    - name: Install conan packages
+      run: |
+        conan install . -s build_type=${{ matrix.build_type }} --build=missing
+
+    - name: Find conan_toolchain (Linux)
       if: matrix.os == 'ubuntu-latest'
+      run: >
+        export toolchain=`find ${{ github.workspace }} -name 'conan_toolchain.cmake' | head -1`
+
+    - name: Find conan_toolchain (Windows)
+      if: matrix.os == 'windows-latest'
+      run: >
+        $toolchain=Get-ChildItem -Path "${{ steps.strings.outputs.build-output-dir }}" -Recurse -Include conan_toolchain.cmake -Name | Select-Object -First 1
+
+    - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: >
@@ -85,7 +97,7 @@ jobs:
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
         -S ${{ github.workspace }}
-        --preset conan-debug
+        -DCMAKE_TOOLCHAIN_FILE="$toolchain"
 
     - name: Build
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
