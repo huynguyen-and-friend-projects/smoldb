@@ -10,30 +10,30 @@ struct InputBuf {
 };
 
 int smoldb_new_input_buf(InputBuf **buf) {
-  if (buf == nullptr) {
+  if (buf == NULL) {
     return SMOLDB_NULL_PTR_TO_REF_ERR;
   }
 
   (*buf) = (InputBuf *)malloc(sizeof(InputBuf));
-  if ((*buf) == nullptr) {
+  if ((*buf) == NULL) {
     return SMOLDB_ALLOC_ERR;
   }
 
-  (*buf)->buffer = nullptr;
+  (*buf)->buffer = NULL;
   (*buf)->buf_len = 0;
 
   return SMOLDB_ALLOC_SUCCESS;
 }
 
 int smoldb_free_input_buf(InputBuf **buf) {
-  if (buf == nullptr) {
+  if (buf == NULL) {
     return SMOLDB_ALLOC_SUCCESS;
   }
 
   free((*buf)->buffer);
-  (*buf)->buffer = nullptr;
+  (*buf)->buffer = NULL;
   free((*buf));
-  (*buf) = nullptr;
+  (*buf) = NULL;
 
   return SMOLDB_ALLOC_SUCCESS;
 }

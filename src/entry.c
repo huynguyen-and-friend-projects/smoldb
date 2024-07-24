@@ -4,7 +4,7 @@
 #include "retval.h"
 
 int main(/*int argc, char *argv[]*/ void) {
-  InputBuf *buf = nullptr;
+  InputBuf *buf = NULL;
   int retval = smoldb_new_input_buf(&buf);
   if (retval == SMOLDB_ALLOC_ERR) {
     smoldb_free_input_buf(&buf);
