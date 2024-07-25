@@ -1,13 +1,21 @@
-# build type
-set(CMAKE_BUILD_TYPE
-    Debug
-    CACHE STRING "Choose a build type" FORCE)
-set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
-                                             "MinSizeRel" "RelWithDebInfo")
+# if build type is not set yet
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    message("No build type is configured! Default to Debug")
+    set(CMAKE_BUILD_TYPE
+        "Debug"
+        CACHE STRING
+              "Choose a build type (Debug, Release, MinSizeRel, RelWithDebInfo)"
+              FORCE)
+    set_property(CACHE CMAKE_BUILD_TYPE
+                 PROPERTY STRINGS "Debug;Release;MinSizeRel;RelWithDebInfo")
+endif()
 
 option(USE_CCACHE "Use ccache" OFF)
 option(USE_LLD "Use lld instead of ld for linking" OFF)
 option(USE_LIBCXX "Use libcxx instead of stdlibcxx" OFF)
+option(ENABLE_OPTIMIZATION
+       "Add some optimization flags. Maybe useful only when build type is Debug"
+       ON)
 option(ENABLE_PCH "Enable precompiled header" ON)
 option(ENABLE_TESTING "Enable Google test" ON)
 option(ENABLE_WARNING "Enable compiler warnings" ON)
@@ -17,6 +25,13 @@ option(ENABLE_UBSAN "Compile with UndefinedBehaviorSanitizer" OFF)
 option(ENABLE_MSAN "Compile with MemorySanitizer" OFF)
 option(ENABLE_COVERAGE "Compile with coverage flag" OFF)
 option(ENABLE_FUZZ "Enable fuzz testing. Currently only working with clang" OFF)
+
+if(NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    mark_as_advanced(FORCE ENABLE_OPTIMIZATION)
+else()
+    mark_as_advanced(CLEAR ENABLE_OPTIMIZATION)
+endif()
+
 # configure accordingly to options
 if(ENABLE_CCACHE)
     find_program(CCACHE ccache)
@@ -26,6 +41,31 @@ if(ENABLE_CCACHE)
         message("Found ccache and is using it")
         set(CMAKE_C_COMPILER_LAUNCHER ${CCACHE})
         set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
+    endif()
+endif()
+
+if(ENABLE_OPTIMIZATION)
+    if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+        if(MSVC)
+            target_compile_options(b-tree-compile-opts INTERFACE "/Zo")
+        else(MSVC)
+            target_compile_options(b-tree-compile-opts INTERFACE "-Og")
+        endif()
+    endif()
+else()
+    if(NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+        message(
+            WARNING
+                "Optimization is on for all types but Debug, for obvious reasons."
+        )
+        message(
+            WARNING "Turning off optimization is only allowed in debug build.")
+    else()
+        if(MSVC)
+            target_compile_options(b-tree-compile-opts INTERFACE "/Od")
+        else(MSVC)
+            target_compile_options(b-tree-compile-opts INTERFACE "-O0")
+        endif()
     endif()
 endif()
 
@@ -94,7 +134,7 @@ endif()
 if(ENABLE_UBSAN)
     if(MSVC)
         message(
-            "We don't know if there's this option on MSVC :(. Currently disabling it."
+            "We don't know if there's UBSan support on MSVC :(. Currently disabling it."
         )
     else(MSVC)
         target_compile_options(smoldb-compile-opts
@@ -107,7 +147,7 @@ endif()
 if(ENABLE_MSAN)
     if("${CMAKE_CXX_COMPILER_FRONTEND_VARIANT}" STREQUAL "MSVC")
         message(
-            "We don't know if there's this option on MSVC :(. Currently disabling it."
+            "We don't know if there's MSan support on MSVC :(. Currently disabling it."
         )
     else()
         target_compile_options(
@@ -129,7 +169,7 @@ if(ENABLE_COVERAGE)
 endif()
 
 if(ENABLE_FUZZ)
-    if(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         message(
             "Note that gcc/g++ won't work with libFuzzer. This is a LLVM-only tool."
         )
