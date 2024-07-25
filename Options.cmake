@@ -122,7 +122,7 @@ endif()
 if(ENABLE_ASAN)
     if(MSVC)
         target_compile_options(smoldb-compile-opts
-                               INTERFACE "/fsanitize=address;/Oy")
+                               INTERFACE "/fsanitize=address;/D_DISABLE_VECTOR_ANNOTATION;/D_DISABLE_STRING_ANNOTATION")
     else(MSVC)
         target_compile_options(
             smoldb-compile-opts
