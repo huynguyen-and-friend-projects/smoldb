@@ -48,7 +48,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         path: submodule
-        token: ${{ secrets.PAT_TOKEN }}
+        token: ${{ secrets.PAT_TOKEN || github.token }}
 
     - name: Install conan
       run: |
