@@ -121,8 +121,11 @@ endif()
 
 if(ENABLE_ASAN)
     if(MSVC)
-        target_compile_options(smoldb-compile-opts
-                               INTERFACE "/fsanitize=address;/D_DISABLE_VECTOR_ANNOTATION;/D_DISABLE_STRING_ANNOTATION")
+        target_compile_options(
+            smoldb-compile-opts
+            INTERFACE
+                "/fsanitize=address;/D_DISABLE_VECTOR_ANNOTATION;/D_DISABLE_STRING_ANNOTATION"
+        )
     else(MSVC)
         target_compile_options(
             smoldb-compile-opts
@@ -162,9 +165,15 @@ endif()
 if(ENABLE_COVERAGE)
     if(MSVC)
         target_compile_options("/fsanitize-coverage=edge")
-    else(MSVC)
+    elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         target_compile_options(smoldb-compile-opts INTERFACE "--coverage")
         target_link_options(smoldb-compile-opts INTERFACE "--coverage")
+    elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+        target_compile_options(
+            smoldb-compile-opts
+            INTERFACE "-fprofile-instr-generate;-fcoverage-mapping")
+        target_link_options(smoldb-compile-opts INTERFACE
+                            "-fprofile-instr-generate;-fcoverage-mapping")
     endif()
 endif()
 
