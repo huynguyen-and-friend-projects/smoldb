@@ -1,7 +1,8 @@
 .cache
+.ccls-cache
 build/**
 compile_commands.json
 .vscode
 **/smoldb
 **/smoldb.exe
-.ccls-cache
+CMakeUserPresets.json

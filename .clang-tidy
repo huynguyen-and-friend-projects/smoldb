@@ -1,4 +1,3 @@
----
 Checks: "*,
         -abseil-*,
         -altera-*,
@@ -10,7 +9,8 @@ Checks: "*,
         -linuxkernel-*,
         -llvm*,
         -zircon-*,
-        -misc-include-cleaner"
+        -misc-include-cleaner,
+        -*use-nullptr"
 WarningsAsErrors: '*'
 HeaderFileExtensions:
   - ''
